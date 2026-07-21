@@ -87,6 +87,33 @@ function App() {
   const [activeSection, setActiveSection] = useState('home');
   const [isScrolled, setIsScrolled] = useState(false);
   const [toast, setToast] = useState(null);
+  const [introActive, setIntroActive] = useState(true);
+  const [fadeOut, setFadeOut] = useState(false);
+
+  // Handle intro splash screen timeout
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setFadeOut(true);
+      const endTimer = setTimeout(() => {
+        setIntroActive(false);
+      }, 800); // Wait for fade-out CSS transition
+      return () => clearTimeout(endTimer);
+    }, 2200); // Display intro for 2.2s
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Prevent scroll during intro splash screen
+  useEffect(() => {
+    if (introActive) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = 'unset';
+    }
+    return () => {
+      document.body.style.overflow = 'unset';
+    };
+  }, [introActive]);
 
   // Monitor scroll for styling navbar and highlighting active links
   useEffect(() => {
@@ -125,6 +152,15 @@ function App() {
 
   return (
     <>
+      {/* Intro Splash Screen */}
+      {introActive && (
+        <div className={`intro-overlay ${fadeOut ? 'fade-out' : ''}`}>
+          <div className="intro-content-wrapper">
+            <p className="intro-line-1">WELCOME TO</p>
+            <h1 className="intro-line-2">SANGSAPTAK'S PORTFOLIO</h1>
+          </div>
+        </div>
+      )}
       {/* Navigation Bar */}
       <header className={isScrolled ? 'scrolled' : ''}>
         <nav className="navbar">
