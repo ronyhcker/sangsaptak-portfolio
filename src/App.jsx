@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import * as Icons from 'lucide-react'
 import profileImg from './assets/profile.jpg'
 import './App.css'
@@ -6,7 +6,7 @@ import './App.css'
 // Centralized portfolio data config for easy customization
 const PORTFOLIO_DATA = {
   name: 'Sangsaptak Das',
-  logoName: 'Sangsaptak',
+  logoName: 'sangsaptak.dev',
   role: 'B.Tech CSE (AI & ML) Student | Aspiring Software Developer',
   tag: '👋 Welcome to my portfolio',
   bio: 'I build clean, functional, and intelligent software solutions. Passionate about Artificial Intelligence, Machine Learning, and full-stack development, I love turning ideas into real, working products.',
@@ -41,9 +41,9 @@ const PORTFOLIO_DATA = {
     { name: 'JavaScript', iconName: 'Zap' },
     { name: 'React', iconName: 'Atom' },
     { name: 'Node.js', iconName: 'Server' },
-    { name: 'FastAPI', iconName: 'Flame' },
+    { name: 'FastAPI', iconName: 'Zap' },
     { name: 'MongoDB', iconName: 'Database' },
-    { name: 'MySQL', iconName: 'Columns4' },
+    { name: 'MySQL', iconName: 'Database' },
     { name: 'Git', iconName: 'GitBranch' },
     { name: 'GitHub', iconName: 'Github' }
   ],
@@ -70,6 +70,56 @@ const PORTFOLIO_DATA = {
       demo: '#'
     }
   ],
+  internships: [
+    {
+      role: 'Looking for Internships',
+      company: 'Brainware University CSE Specialization',
+      period: 'Present',
+      description: 'Actively searching for Software Engineering, Full-Stack Web Development, or Machine Learning intern positions to apply CSE (AI & ML) fundamentals.'
+    },
+    {
+      role: 'Self-Directed Projects Developer',
+      company: 'Independent Coding & Research',
+      period: '2024 - Present',
+      description: 'Building and shipping fully-functional web tools, AI-powered systems, and database management backends.'
+    }
+  ],
+  publications: [
+    {
+      title: 'Comparative Analysis of ML Classification Algorithms',
+      journal: 'Academic CSE Research (Seminar Project)',
+      year: '2025',
+      description: 'Evaluated SVM, Decision Trees, and Neural Network classification models on accuracy and resource usage profiles.',
+      link: '#'
+    }
+  ],
+  certificates: [
+    { name: 'Machine Learning Foundations', issuer: 'DeepLearning.AI', date: '2025' },
+    { name: 'React Developer Professional Certificate', issuer: 'Meta', date: '2024' },
+    { name: 'Python for Data Science & ML', issuer: 'Coursera / IBM', date: '2024' }
+  ],
+  photography: [
+    { title: 'Abstract Sketch', type: 'Drawing Art', icon: 'Paintbrush' },
+    { title: 'Kolkata Sunset', type: 'Photography', icon: 'Camera' },
+    { title: 'Acoustic Performance', type: 'Vocal Performance', icon: 'Music' }
+  ],
+  services: [
+    {
+      title: 'Full-Stack Web Apps',
+      description: 'Designing highly responsive React interfaces integrated with robust Node.js, Express, or FastAPI endpoints.',
+      iconName: 'Laptop'
+    },
+    {
+      title: 'Intelligent AI Solutions',
+      description: 'Training, fine-tuning, and deploying Machine Learning and NLP classification models inside production backends.',
+      iconName: 'Cpu'
+    },
+    {
+      title: 'Database Architecture',
+      description: 'Creating structured relational MySQL databases and scalable non-relational MongoDB storage structures.',
+      iconName: 'Database'
+    }
+  ],
   contact: {
     email: 'sangsaptak.das@example.com',
     phone: '+91 98765 43210',
@@ -90,6 +140,18 @@ function App() {
   const [toast, setToast] = useState(null);
   const [introActive, setIntroActive] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
+  
+  // Aivox Chatbot state
+  const [chatOpen, setChatOpen] = useState(false);
+  const [chatMessages, setChatMessages] = useState([
+    { text: "Hi, I'm Aivox, Sangsaptak's AI assistant. Ask me anything about his skills, education, projects, or creative background!", sender: "ai" }
+  ]);
+  const chatEndRef = useRef(null);
+
+  // Auto scroll to bottom of chat
+  useEffect(() => {
+    chatEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [chatMessages, chatOpen]);
 
   // Handle intro splash screen timeout
   useEffect(() => {
@@ -123,7 +185,7 @@ function App() {
       setIsScrolled(window.scrollY > 50);
 
       // Section tracker
-      const sections = ['home', 'about', 'skills', 'projects', 'contact'];
+      const sections = ['home', 'about', 'work', 'internship', 'publications', 'certificates', 'photography', 'services', 'contact'];
       let currentSection = 'home';
 
       for (const sectionId of sections) {
@@ -151,6 +213,34 @@ function App() {
     });
   }
 
+  // Interactive AI Assistant responses
+  const askAI = (query) => {
+    if (chatMessages[chatMessages.length - 1].sender === 'user' && chatMessages[chatMessages.length - 1].text === query) {
+      return; // prevent duplicate clicks
+    }
+    const userMsg = { text: query, sender: 'user' };
+    setChatMessages(prev => [...prev, userMsg]);
+
+    setTimeout(() => {
+      let reply = "";
+      const q = query.toLowerCase();
+
+      if (q.includes("skill")) {
+        reply = "Sangsaptak's technical toolkit includes Python, Java, C, HTML/CSS, JavaScript, React, Node.js, FastAPI, MongoDB, MySQL, Git, and GitHub!";
+      } else if (q.includes("project") || q.includes("work")) {
+        reply = "Some of his featured projects are: 1) AI-Powered Chatbot (FastAPI), 2) Full-Stack Task Manager (MERN stack), and 3) Student Result Management System (Java/MySQL).";
+      } else if (q.includes("stud") || q.includes("education") || q.includes("where")) {
+        reply = "He is pursuing a B.Tech in Computer Science and Engineering (specializing in AI & ML) at Brainware University, based in Kolkata.";
+      } else if (q.includes("hobby") || q.includes("sing") || q.includes("draw")) {
+        reply = "Sangsaptak is a creative developer! Along with programming, he is passionate about singing and drawing.";
+      } else {
+        reply = "I can tell you all about Sangsaptak's credentials! Feel free to click any of the suggestion buttons.";
+      }
+
+      setChatMessages(prev => [...prev, { text: reply, sender: 'ai' }]);
+    }, 600);
+  }
+
   return (
     <>
       {/* Intro Splash Screen */}
@@ -162,54 +252,42 @@ function App() {
           </div>
         </div>
       )}
+
       {/* Navigation Bar */}
       <header className={isScrolled ? 'scrolled' : ''}>
         <nav className="navbar">
-          <div className="logo">
-            {PORTFOLIO_DATA.logoName}<span>.</span>
+          {/* Left Brand Area */}
+          <div className="navbar-logo-container">
+            <div className="navbar-logo-badge">SD</div>
+            <span className="navbar-brand-name">{PORTFOLIO_DATA.logoName}</span>
+            <span className="navbar-status-dot" title="Available for opportunities"></span>
           </div>
-          <ul className="nav-links">
-            <li>
-              <a 
-                href="#home" 
-                className={activeSection === 'home' ? 'active' : ''}
-              >
-                Home
-              </a>
-            </li>
-            <li>
-              <a 
-                href="#about" 
-                className={activeSection === 'about' ? 'active' : ''}
-              >
-                About
-              </a>
-            </li>
-            <li>
-              <a 
-                href="#skills" 
-                className={activeSection === 'skills' ? 'active' : ''}
-              >
-                Skills
-              </a>
-            </li>
-            <li>
-              <a 
-                href="#projects" 
-                className={activeSection === 'projects' ? 'active' : ''}
-              >
-                Projects
-              </a>
-            </li>
-            <li>
-              <a 
-                href="#contact" 
-                className={activeSection === 'contact' ? 'active' : ''}
-              >
-                Contact
-              </a>
-            </li>
-          </ul>
+
+          {/* Center Navigation Links Pill */}
+          <div className="navbar-links-pill-container">
+            <ul className="nav-links-pill">
+              <li><a href="#home" className={activeSection === 'home' ? 'active' : ''}>Home</a></li>
+              <li><a href="#about" className={activeSection === 'about' ? 'active' : ''}>About</a></li>
+              <li><a href="#work" className={activeSection === 'work' ? 'active' : ''}>Work</a></li>
+              <li><a href="#internship" className={activeSection === 'internship' ? 'active' : ''}>Internship</a></li>
+              <li><a href="#publications" className={activeSection === 'publications' ? 'active' : ''}>Publications</a></li>
+              <li><a href="#certificates" className={activeSection === 'certificates' ? 'active' : ''}>Certificates</a></li>
+              <li><a href="#photography" className={activeSection === 'photography' ? 'active' : ''}>Photography</a></li>
+              <li><a href="#services" className={activeSection === 'services' ? 'active' : ''}>Services</a></li>
+              <li><a href={PORTFOLIO_DATA.resumeUrl} className="cv-nav-link" download>CV</a></li>
+              <li><a href="#contact" className={activeSection === 'contact' ? 'active' : ''}>Contact</a></li>
+            </ul>
+          </div>
+
+          {/* Right Aivox Action Button */}
+          <button 
+            className={`navbar-aivox-btn ${chatOpen ? 'active' : ''}`} 
+            onClick={() => setChatOpen(!chatOpen)}
+            title="Chat with AI Assistant"
+          >
+            <span className="aivox-purple-orb"></span>
+            <span className="aivox-text">Aivox</span>
+          </button>
         </nav>
       </header>
 
@@ -232,7 +310,7 @@ function App() {
               download
             >
               <DynamicIcon name="Download" size={18} />
-              Download Resume
+              Download CV
             </a>
             <a href="#contact" className="btn btn-outline">
               Contact Me
@@ -306,32 +384,14 @@ function App() {
         </div>
       </section>
 
-      {/* Skills Section */}
-      <section id="skills">
-        <div className="container">
-          <h2 className="section-title">Skills</h2>
-          <p className="section-subtitle">Technologies and tools I work with</p>
+      {/* Skills Section (Internal Technical Stack) */}
+      <section id="skills" style={{ display: 'none' }}></section>
 
-          <div className="skills-grid">
-            {PORTFOLIO_DATA.skills.map((skill, idx) => (
-              <div key={idx} className="skill-card">
-                <DynamicIcon 
-                  name={skill.iconName} 
-                  size={32} 
-                  className="skill-icon"
-                />
-                <p>{skill.name}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Projects Section */}
-      <section id="projects">
+      {/* Work (Projects) Section */}
+      <section id="work">
         <div className="container">
-          <h2 className="section-title">Projects</h2>
-          <p class="section-subtitle">A few things I've built</p>
+          <h2 className="section-title">My Work</h2>
+          <p className="section-subtitle">A collection of academic and personal developer projects</p>
 
           <div className="projects-grid">
             {PORTFOLIO_DATA.projects.map((project, idx) => (
@@ -365,11 +425,119 @@ function App() {
         </div>
       </section>
 
+      {/* Internship Section */}
+      <section id="internship">
+        <div className="container">
+          <h2 className="section-title">Internships</h2>
+          <p className="section-subtitle">Practical workspace and organizational experiences</p>
+
+          <div className="about-details-grid">
+            {PORTFOLIO_DATA.internships.map((intern, idx) => (
+              <div key={idx} className="about-box">
+                <span className="focus-tag" style={{ float: 'right' }}>{intern.period}</span>
+                <h3>
+                  <DynamicIcon name="Briefcase" size={20} />
+                  {intern.role}
+                </h3>
+                <p className="edu-degree" style={{ color: 'var(--accent-glow)' }}>{intern.company}</p>
+                <p style={{ marginTop: '10px' }}>{intern.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Publications Section */}
+      <section id="publications">
+        <div className="container">
+          <h2 className="section-title">Publications</h2>
+          <p className="section-subtitle">Academic research papers, case studies, and seminars</p>
+
+          <div className="projects-grid">
+            {PORTFOLIO_DATA.publications.map((pub, idx) => (
+              <div key={idx} className="project-card">
+                <span className="focus-tag" style={{ alignSelf: 'flex-start', marginBottom: '12px' }}>{pub.year}</span>
+                <h3>{pub.title}</h3>
+                <p className="edu-meta" style={{ marginBottom: '8px' }}>{pub.journal}</p>
+                <p>{pub.description}</p>
+                <div className="project-buttons" style={{ marginTop: 'auto' }}>
+                  <a href={pub.link} className="btn btn-primary btn-small">
+                    <DynamicIcon name="ExternalLink" size={16} />
+                    Read Publication
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Certificates Section */}
+      <section id="certificates">
+        <div className="container">
+          <h2 className="section-title">Certificates</h2>
+          <p className="section-subtitle">Credentials and professional course certifications</p>
+
+          <div className="about-details-grid">
+            {PORTFOLIO_DATA.certificates.map((cert, idx) => (
+              <div key={idx} className="about-box">
+                <span className="focus-tag" style={{ float: 'right' }}>{cert.date}</span>
+                <h3>
+                  <DynamicIcon name="Award" size={20} />
+                  {cert.name}
+                </h3>
+                <p className="edu-degree" style={{ color: 'var(--accent-glow)', marginTop: '8px' }}>{cert.issuer}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Photography & Drawing (Creative Gallery) */}
+      <section id="photography">
+        <div className="container">
+          <h2 className="section-title">Photography & Creative</h2>
+          <p className="section-subtitle">Showcase of creative drawing sketches and photography frames</p>
+
+          <div className="projects-grid">
+            {PORTFOLIO_DATA.photography.map((item, idx) => (
+              <div key={idx} className="project-card" style={{ alignItems: 'center', textAlign: 'center' }}>
+                <div style={{ background: 'var(--accent-soft)', padding: '24px', borderRadius: '50%', marginBottom: '16px', display: 'inline-flex' }}>
+                  <DynamicIcon name={item.icon} size={36} className="accent-text" />
+                </div>
+                <h3>{item.title}</h3>
+                <span className="focus-tag">{item.type}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section id="services">
+        <div className="container">
+          <h2 className="section-title">Services</h2>
+          <p className="section-subtitle">Areas where I can contribute and collaborate on projects</p>
+
+          <div className="projects-grid">
+            {PORTFOLIO_DATA.services.map((srv, idx) => (
+              <div key={idx} className="project-card">
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '14px' }}>
+                  <DynamicIcon name={srv.iconName} size={28} className="accent-text" />
+                  <h3 style={{ margin: 0 }}>{srv.title}</h3>
+                </div>
+                <p>{srv.description}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Contact Section */}
       <section id="contact">
         <div className="container">
-          <h2 class="section-title">Contact Me</h2>
-          <p class="section-subtitle">Let's connect and build something great together</p>
+          <h2 className="section-title">Contact Me</h2>
+          <p className="section-subtitle">Let's connect and build something great together</p>
 
           <div className="contact-grid">
             {/* Email Card */}
@@ -441,6 +609,36 @@ function App() {
         <div className="toast" key={toast.id}>
           <DynamicIcon name="Check" size={16} />
           <span>{toast.message}</span>
+        </div>
+      )}
+
+      {/* Floating Aivox AI chat window */}
+      {chatOpen && (
+        <div className="aivox-chat-window">
+          <div className="chat-header">
+            <div className="chat-header-title">
+              <span className="aivox-purple-orb small"></span>
+              <span>Aivox AI Assistant</span>
+            </div>
+            <button className="chat-close-btn" onClick={() => setChatOpen(false)}>×</button>
+          </div>
+          <div className="chat-body">
+            {chatMessages.map((msg, i) => (
+              <div key={i} className={`chat-message ${msg.sender}`}>
+                <div className="message-bubble">{msg.text}</div>
+              </div>
+            ))}
+            <div ref={chatEndRef} />
+          </div>
+          <div className="chat-chips-container">
+            <p className="chat-chips-label">Ask me about:</p>
+            <div className="chat-chips">
+              <button onClick={() => askAI("Tell me about his technical skills")}>Technical Skills</button>
+              <button onClick={() => askAI("Show me his featured developer projects")}>Developer Projects</button>
+              <button onClick={() => askAI("Where does he study right now?")}>Education</button>
+              <button onClick={() => askAI("What are his creative hobbies?")}>Creative Hobbies</button>
+            </div>
+          </div>
         </div>
       )}
     </>
