@@ -70,14 +70,14 @@ const PORTFOLIO_DATA = {
       { name: 'Netlify', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/netlify/netlify-original.svg' }
     ],
     aiTools: [
-      { name: 'Copilot', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/githubcopilot.svg', style: { filter: 'invert(1)' } },
-      { name: 'ChatGPT', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/openai.svg', style: { filter: 'invert(1)' } },
-      { name: 'Cursor', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/cursor.svg', style: { filter: 'invert(1)' } },
-      { name: 'Claude', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/claude.svg', style: { filter: 'invert(1)' } },
-      { name: 'Midjourney', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/midjourney.svg', style: { filter: 'invert(1)' } },
-      { name: 'Gemini', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/googlegemini.svg', style: { filter: 'invert(1)' } },
-      { name: 'Ollama', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/ollama.svg', style: { filter: 'invert(1)' } },
-      { name: 'Hugging Face', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/huggingface.svg', style: { filter: 'invert(1)' } }
+      { name: 'Copilot', logoUrl: 'https://cdn.simpleicons.org/githubcopilot/ffffff' },
+      { name: 'ChatGPT', logoUrl: 'https://cdn.simpleicons.org/openai/10a37f' },
+      { name: 'Cursor', logoUrl: 'https://cdn.simpleicons.org/cursor/0078d4' },
+      { name: 'Claude', logoUrl: 'https://cdn.simpleicons.org/claude/d97c65' },
+      { name: 'Midjourney', logoUrl: 'https://cdn.simpleicons.org/midjourney/ffffff' },
+      { name: 'Gemini', logoUrl: 'https://cdn.simpleicons.org/googlegemini/8ab4f8' },
+      { name: 'Ollama', logoUrl: 'https://cdn.simpleicons.org/ollama/ffffff' },
+      { name: 'Hugging Face', logoUrl: 'https://cdn.simpleicons.org/huggingface/ffd21e' }
     ],
     mlPills: [
       { name: 'PANDAS', className: 'pill-purple' },
