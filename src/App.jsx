@@ -72,9 +72,9 @@ const PORTFOLIO_DATA = {
     aiTools: [
       { name: 'Copilot', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/githubcopilot.svg', style: { filter: 'invert(1)' } },
       { name: 'ChatGPT', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/openai.svg', style: { filter: 'invert(53%) sepia(87%) saturate(415%) hue-rotate(117deg) brightness(91%) contrast(89%)' } },
-      { name: 'Cursor', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/cursor.svg', style: { filter: 'invert(37%) sepia(93%) saturate(3474%) hue-rotate(193deg) brightness(94%) contrast(101%)' } },
+      { name: 'Cursor', logoUrl: 'cursor-inline' },
       { name: 'Claude', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/claude.svg', style: { filter: 'invert(61%) sepia(48%) saturate(541%) hue-rotate(325deg) brightness(91%) contrast(90%)' } },
-      { name: 'Midjourney', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/midjourney.svg', style: { filter: 'invert(1)' } },
+      { name: 'Midjourney', logoUrl: 'midjourney-inline' },
       { name: 'Gemini', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/googlegemini.svg', style: { filter: 'invert(79%) sepia(16%) saturate(1682%) hue-rotate(196deg) brightness(101%) contrast(97%)' } },
       { name: 'Ollama', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/ollama.svg', style: { filter: 'invert(1)' } },
       { name: 'Hugging Face', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/huggingface.svg', style: { filter: 'invert(80%) sepia(74%) saturate(767%) hue-rotate(338deg) brightness(103%) contrast(100%)' } }
