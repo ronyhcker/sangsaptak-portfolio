@@ -53,6 +53,32 @@ const PORTFOLIO_DATA = {
       { name: 'Tailwind CSS', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg' },
       { name: 'Vite', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vitejs/vitejs-original.svg' }
     ],
+    databases: [
+      { name: 'MongoDB', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mongodb/mongodb-original.svg' },
+      { name: 'MySQL', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg' },
+      { name: 'PostgreSQL', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg' },
+      { name: 'Supabase', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/supabase/supabase-original.svg' }
+    ],
+    devops: [
+      { name: 'AWS', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/amazonwebservices/amazonwebservices-original-wordmark.svg', style: { filter: 'invert(1)' } },
+      { name: 'Google Cloud', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/googlecloud/googlecloud-original.svg' },
+      { name: 'Git', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg' },
+      { name: 'GitHub', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/github/github-original.svg', style: { filter: 'invert(1)' } },
+      { name: 'Figma', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg' },
+      { name: 'Blender', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/blender/blender-original.svg' },
+      { name: 'Vercel', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vercel/vercel-original.svg', style: { filter: 'invert(1)' } },
+      { name: 'Netlify', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/netlify/netlify-original.svg' }
+    ],
+    aiTools: [
+      { name: 'Copilot', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/githubcopilot.svg', style: { filter: 'invert(1)' } },
+      { name: 'ChatGPT', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/openai.svg' },
+      { name: 'Cursor', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/cursor.svg' },
+      { name: 'Claude', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/claude.svg' },
+      { name: 'Midjourney', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/midjourney.svg', style: { filter: 'invert(1)' } },
+      { name: 'Gemini', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/googlegemini.svg' },
+      { name: 'Ollama', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/ollama.svg', style: { filter: 'invert(1)' } },
+      { name: 'Hugging Face', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/huggingface.svg' }
+    ],
     mlPills: [
       { name: 'PANDAS', className: 'pill-purple' },
       { name: 'NUMPY', className: 'pill-teal' },
@@ -464,6 +490,75 @@ function App() {
                   <span className="ml-pill-indicator">||</span>
                   {pill.name}
                 </span>
+              ))}
+            </div>
+          </div>
+
+          {/* Databases Category */}
+          <div className="tech-category">
+            <h3 className="category-title">
+              <span className="category-title-bar green-bar"></span>
+              <DynamicIcon name="Database" size={22} className="category-icon" />
+              <span>DATABASES</span>
+            </h3>
+            <div className="tech-grid">
+              {PORTFOLIO_DATA.techStack.databases.map((tech, idx) => (
+                <div key={idx} className="tech-card" title={tech.name}>
+                  <div className="tech-card-inner">
+                    <div className="tech-card-front">
+                      <img src={tech.logoUrl} alt={tech.name} className="tech-logo-img" style={tech.style} />
+                    </div>
+                    <div className="tech-card-back">
+                      <span>{tech.name}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Cloud & DevOps Category */}
+          <div className="tech-category">
+            <h3 className="category-title">
+              <span className="category-title-bar red-bar"></span>
+              <DynamicIcon name="Rocket" size={22} className="category-icon" />
+              <span>CLOUD & DEVOPS</span>
+            </h3>
+            <div className="tech-grid">
+              {PORTFOLIO_DATA.techStack.devops.map((tech, idx) => (
+                <div key={idx} className="tech-card" title={tech.name}>
+                  <div className="tech-card-inner">
+                    <div className="tech-card-front">
+                      <img src={tech.logoUrl} alt={tech.name} className="tech-logo-img" style={tech.style} />
+                    </div>
+                    <div className="tech-card-back">
+                      <span>{tech.name}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* AI Tools Use Category */}
+          <div className="tech-category">
+            <h3 className="category-title">
+              <span className="category-title-bar blue-bar"></span>
+              <DynamicIcon name="Sparkles" size={22} className="category-icon" />
+              <span>AI TOOLS USE</span>
+            </h3>
+            <div className="tech-grid">
+              {PORTFOLIO_DATA.techStack.aiTools.map((tech, idx) => (
+                <div key={idx} className="tech-card" title={tech.name}>
+                  <div className="tech-card-inner">
+                    <div className="tech-card-front">
+                      <img src={tech.logoUrl} alt={tech.name} className="tech-logo-img" style={tech.style} />
+                    </div>
+                    <div className="tech-card-back">
+                      <span>{tech.name}</span>
+                    </div>
+                  </div>
+                </div>
               ))}
             </div>
           </div>

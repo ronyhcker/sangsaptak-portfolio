@@ -1098,6 +1098,33 @@ footer span {
   box-shadow: 0 0 12px var(--accent-glow);
 }
 
+.category-title-bar.green-bar {
+  background: linear-gradient(180deg, #10b981, #059669);
+}
+
+.tech-category:hover .category-title-bar.green-bar {
+  background: linear-gradient(180deg, #059669, #10b981);
+  box-shadow: 0 0 12px #10b981;
+}
+
+.category-title-bar.red-bar {
+  background: linear-gradient(180deg, #f43f5e, #e11d48);
+}
+
+.tech-category:hover .category-title-bar.red-bar {
+  background: linear-gradient(180deg, #e11d48, #f43f5e);
+  box-shadow: 0 0 12px #f43f5e;
+}
+
+.category-title-bar.blue-bar {
+  background: linear-gradient(180deg, #3b82f6, #2563eb);
+}
+
+.tech-category:hover .category-title-bar.blue-bar {
+  background: linear-gradient(180deg, #2563eb, #3b82f6);
+  box-shadow: 0 0 12px #3b82f6;
+}
+
 .category-icon {
   color: var(--accent-glow);
 }
