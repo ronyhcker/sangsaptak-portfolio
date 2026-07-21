@@ -5,10 +5,10 @@ import './App.css'
 
 // Centralized portfolio data config for easy customization
 const PORTFOLIO_DATA = {
-  name: 'Arup Das',
-  logoName: 'arup.dev',
-  role: 'Senior AI & Full-Stack Architect',
-  tag: 'Senior AI & Full-Stack Architect',
+  name: 'Sangsaptak Das',
+  logoName: 'sangsaptak.dev',
+  role: 'B.Tech CSE (AI & ML) Student | Aspiring Software Developer',
+  tag: '👋 Welcome to my portfolio',
   bio: 'I build clean, functional, and intelligent software solutions. Passionate about Artificial Intelligence, Machine Learning, and full-stack development, I love turning ideas into real, working products.',
   resumeUrl: '#',
   about: {
@@ -154,12 +154,11 @@ function App() {
   const [toast, setToast] = useState(null);
   const [introActive, setIntroActive] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
-  const [roleText, setRoleText] = useState('');
   
   // Aivox Chatbot state
   const [chatOpen, setChatOpen] = useState(false);
   const [chatMessages, setChatMessages] = useState([
-    { text: "Hi, I'm Aivox, Arup's AI assistant. Ask me anything about his skills, education, projects, or creative background!", sender: "ai" }
+    { text: "Hi, I'm Aivox, Sangsaptak's AI assistant. Ask me anything about his skills, education, projects, or creative background!", sender: "ai" }
   ]);
   const chatEndRef = useRef(null);
 
@@ -191,21 +190,6 @@ function App() {
     return () => {
       document.body.style.overflow = 'unset';
     };
-  }, [introActive]);
-
-  // Typewriter effect matching the Hero role typing
-  useEffect(() => {
-    if (introActive) return;
-    const fullText = "I & Full-Stack Architect.";
-    let index = 0;
-    const interval = setInterval(() => {
-      setRoleText(fullText.substring(0, index));
-      index++;
-      if (index > fullText.length) {
-        clearInterval(interval);
-      }
-    }, 120);
-    return () => clearInterval(interval);
   }, [introActive]);
 
   // Monitor scroll for styling navbar and highlighting active links
@@ -256,15 +240,15 @@ function App() {
       const q = query.toLowerCase();
 
       if (q.includes("skill")) {
-        reply = "Arup's technical toolkit includes Python, Java, C, HTML/CSS, JavaScript, React, Node.js, FastAPI, MongoDB, MySQL, Git, and GitHub!";
+        reply = "Sangsaptak's technical toolkit includes Python, Java, C, HTML/CSS, JavaScript, React, Node.js, FastAPI, MongoDB, MySQL, Git, and GitHub!";
       } else if (q.includes("project") || q.includes("work")) {
         reply = "Some of his featured projects are: 1) AI-Powered Chatbot (FastAPI), 2) Full-Stack Task Manager (MERN stack), and 3) Student Result Management System (Java/MySQL).";
       } else if (q.includes("stud") || q.includes("education") || q.includes("where")) {
         reply = "He is pursuing a B.Tech in Computer Science and Engineering (specializing in AI & ML) at Brainware University, based in Kolkata.";
       } else if (q.includes("hobby") || q.includes("sing") || q.includes("draw")) {
-        reply = "Arup is a creative developer! Along with programming, he is passionate about singing and drawing.";
+        reply = "Sangsaptak is a creative developer! Along with programming, he is passionate about singing and drawing.";
       } else {
-        reply = "I can tell you all about Arup's credentials! Feel free to click any of the suggestion buttons.";
+        reply = "I can tell you all about Sangsaptak's credentials! Feel free to click any of the suggestion buttons.";
       }
 
       setChatMessages(prev => [...prev, { text: reply, sender: 'ai' }]);
@@ -323,83 +307,28 @@ function App() {
 
       {/* Hero Section */}
       <section className="hero" id="home">
-        <div className="hero-content-left">
-          {/* Top Status Pill */}
-          <div className="hero-status-pill">
-            <span className="status-dot green"></span>
-            <span>{PORTFOLIO_DATA.role}</span>
+        <div className="hero-content">
+          <div className="hero-tag">
+            <DynamicIcon name="Sparkles" size={16} />
+            <span>{PORTFOLIO_DATA.tag}</span>
           </div>
-
-          {/* System Subtitle */}
-          <div className="hero-system-subtitle">
-            &lt; SYSTEM ARCHITECT /&gt;
-          </div>
-
-          {/* Heading */}
-          <h1 className="hero-name-heading">
-            Hi, I'm <span className="name-block">Arup Das</span>
+          <h1>
+            Hi, I'm <span className="accent-text">{PORTFOLIO_DATA.name}</span>
           </h1>
-
-          {/* Typing Role */}
-          <div className="hero-role-typing">
-            <span className="role-prefix">A{roleText}</span>
-            <span className="typing-cursor">|</span>
-          </div>
-
-          {/* Badges Grid */}
-          <div className="hero-badges-container">
-            <div className="hero-badge-pill">
-              <strong>15+</strong> Projects Shipped
-            </div>
-            <div className="hero-badge-pill">
-              <strong>8+</strong> Certifications
-            </div>
-            <div className="hero-badge-pill">
-              <strong>40+</strong> AI / Tech Stack
-            </div>
-            <div className="hero-badge-pill">
-              <strong>2028</strong> B.Tech CSE (AI/ML)
-            </div>
-          </div>
-
-          {/* Location / Availability */}
-          <div className="hero-meta-row">
-            <div className="meta-item">
-              <DynamicIcon name="MapPin" size={16} />
-              <span>Based in Kolkata</span>
-            </div>
-            <div className="meta-item">
-              <DynamicIcon name="Shield" size={16} />
-              <span>Available Now</span>
-            </div>
-          </div>
-
-          {/* Action Buttons */}
-          <div className="hero-action-buttons">
-            <a href="#contact" className="btn btn-hire">
-              <DynamicIcon name="Send" size={18} />
-              Hire Me
-            </a>
-            <a href={PORTFOLIO_DATA.resumeUrl} className="btn btn-cv-outline" download>
+          <h2>{PORTFOLIO_DATA.role}</h2>
+          <p>{PORTFOLIO_DATA.bio}</p>
+          <div className="hero-buttons">
+            <a 
+              href={PORTFOLIO_DATA.resumeUrl} 
+              className="btn btn-primary"
+              download
+            >
               <DynamicIcon name="Download" size={18} />
               Download CV
             </a>
-          </div>
-
-          {/* Follow Me Socials */}
-          <div className="hero-social-follow">
-            <span className="follow-label">Follow me:</span>
-            <div className="social-links-circle">
-              <a href="https://github.com/ronyhcker" target="_blank" rel="noreferrer" title="GitHub">
-                <DynamicIcon name="Github" size={18} />
-              </a>
-              <a href="https://linkedin.com" target="_blank" rel="noreferrer" title="LinkedIn">
-                <DynamicIcon name="Linkedin" size={18} />
-              </a>
-              <a href="https://instagram.com" target="_blank" rel="noreferrer" title="Instagram">
-                <DynamicIcon name="Instagram" size={18} />
-              </a>
-            </div>
+            <a href="#contact" className="btn btn-outline">
+              Contact Me
+            </a>
           </div>
         </div>
       </section>
