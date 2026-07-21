@@ -1051,3 +1051,224 @@ footer span {
     padding: 12px 16px;
   }
 }
+
+/* ===========================
+   Technology Stack Section
+=========================== */
+.tech-stack-section {
+  position: relative;
+  background-color: var(--bg-primary);
+}
+
+.tech-stack-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.tech-category {
+  margin-top: 50px;
+  text-align: left;
+}
+
+.category-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+  width: fit-content;
+  position: relative;
+  cursor: pointer;
+}
+
+.category-title-bar {
+  width: 4px;
+  height: 24px;
+  background: linear-gradient(180deg, var(--accent-primary), var(--accent-secondary));
+  border-radius: 2px;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.tech-category:hover .category-title-bar {
+  transform: scaleY(1.35) rotate(180deg);
+  background: linear-gradient(180deg, var(--accent-secondary), var(--accent-primary));
+  box-shadow: 0 0 12px var(--accent-glow);
+}
+
+.category-icon {
+  color: var(--accent-glow);
+}
+
+.tech-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.tech-card {
+  width: 72px;
+  height: 72px;
+  perspective: 1000px;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+.tech-card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-style: preserve-3d;
+}
+
+.tech-card:hover .tech-card-inner {
+  transform: rotateY(180deg);
+}
+
+.tech-card-front, .tech-card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px;
+  box-sizing: border-box;
+}
+
+.tech-card-front {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  transition: border-color 0.3s;
+}
+
+.tech-card:hover .tech-card-front {
+  border-color: var(--border-hover);
+}
+
+.tech-card-back {
+  background: var(--bg-card-hover);
+  border: 1px solid var(--accent-glow);
+  transform: rotateY(180deg);
+  color: #fff;
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  box-shadow: 0 0 15px rgba(96, 165, 250, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  word-break: break-all;
+}
+
+.tech-logo-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.ml-pills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.ml-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.ml-pill-indicator {
+  font-size: 0.75rem;
+  font-weight: 700;
+  opacity: 0.6;
+}
+
+.pill-purple {
+  background: rgba(168, 85, 247, 0.1);
+  color: #d8b4fe;
+  border-color: rgba(168, 85, 247, 0.2);
+}
+
+.pill-teal {
+  background: rgba(20, 184, 166, 0.1);
+  color: #99f6e4;
+  border-color: rgba(20, 184, 166, 0.2);
+}
+
+.pill-blue {
+  background: rgba(59, 130, 246, 0.1);
+  color: #bfdbfe;
+  border-color: rgba(59, 130, 246, 0.2);
+}
+
+.pill-orange {
+  background: rgba(249, 115, 22, 0.1);
+  color: #ffedd5;
+  border-color: rgba(249, 115, 22, 0.2);
+}
+
+.pill-gray {
+  background: rgba(107, 114, 128, 0.1);
+  color: #e5e7eb;
+  border-color: rgba(107, 114, 128, 0.2);
+}
+
+.ml-pill:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.pill-purple:hover {
+  box-shadow: 0 4px 14px rgba(168, 85, 247, 0.3);
+}
+
+.pill-teal:hover {
+  box-shadow: 0 4px 14px rgba(20, 184, 166, 0.3);
+}
+
+.pill-blue:hover {
+  box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
+}
+
+.pill-orange:hover {
+  box-shadow: 0 4px 14px rgba(249, 115, 22, 0.3);
+}
+
+.pill-gray:hover {
+  box-shadow: 0 4px 14px rgba(107, 114, 128, 0.3);
+}
+
+@media (max-width: 480px) {
+  .tech-grid {
+    justify-content: center;
+    gap: 12px;
+  }
+  
+  .tech-card {
+    width: 64px;
+    height: 64px;
+  }
+  
+  .ml-pills-container {
+    justify-content: center;
+  }
+}

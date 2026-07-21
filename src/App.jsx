@@ -32,21 +32,35 @@ const PORTFOLIO_DATA = {
       'Backend Systems'
     ]
   },
-  skills: [
-    { name: 'Python', iconName: 'Code2' },
-    { name: 'Java', iconName: 'Coffee' },
-    { name: 'C', iconName: 'Cpu' },
-    { name: 'HTML', iconName: 'FileCode' },
-    { name: 'CSS', iconName: 'Palette' },
-    { name: 'JavaScript', iconName: 'Zap' },
-    { name: 'React', iconName: 'Atom' },
-    { name: 'Node.js', iconName: 'Server' },
-    { name: 'FastAPI', iconName: 'Zap' },
-    { name: 'MongoDB', iconName: 'Database' },
-    { name: 'MySQL', iconName: 'Database' },
-    { name: 'Git', iconName: 'GitBranch' },
-    { name: 'GitHub', iconName: 'Github' }
-  ],
+  techStack: {
+    languages: [
+      { name: 'Python', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg' },
+      { name: 'JavaScript', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg' },
+      { name: 'TypeScript', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg' },
+      { name: 'Java', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg' },
+      { name: 'C', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/c/c-original.svg' },
+      { name: 'C++', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg' },
+      { name: 'HTML5', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg' },
+      { name: 'CSS3', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg' },
+      { name: 'Kotlin', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/kotlin/kotlin-original.svg' }
+    ],
+    frameworks: [
+      { name: 'React', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg' },
+      { name: 'Next.js', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg', style: { filter: 'invert(1)' } },
+      { name: 'Node.js', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg' },
+      { name: 'FastAPI', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/fastapi/fastapi-original.svg' },
+      { name: 'Flutter', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/flutter/flutter-original.svg' },
+      { name: 'Tailwind CSS', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg' },
+      { name: 'Vite', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vitejs/vitejs-original.svg' }
+    ],
+    mlPills: [
+      { name: 'PANDAS', className: 'pill-purple' },
+      { name: 'NUMPY', className: 'pill-teal' },
+      { name: 'MATPLOTLIB', className: 'pill-blue' },
+      { name: 'SCIKIT-LEARN', className: 'pill-orange' },
+      { name: 'PLOTLY', className: 'pill-gray' }
+    ]
+  },
   projects: [
     {
       title: 'AI-Powered Chatbot',
@@ -384,8 +398,77 @@ function App() {
         </div>
       </section>
 
-      {/* Skills Section (Internal Technical Stack) */}
-      <section id="skills" style={{ display: 'none' }}></section>
+      {/* Technology Stack Section */}
+      <section id="skills" className="tech-stack-section">
+        <div className="container">
+          <div className="tech-stack-header">
+            <div className="hero-tag">
+              <DynamicIcon name="Sparkles" size={16} />
+              <span>✦ WHAT I WORK WITH ✦</span>
+            </div>
+            <h2 className="section-title">Technology <span className="accent-text">Stack</span></h2>
+            <p className="section-subtitle">
+              A curated list of languages, frameworks, and tools I use to build scalable, high-performance digital solutions.
+            </p>
+          </div>
+
+          {/* Languages Category */}
+          <div className="tech-category">
+            <h3 className="category-title">
+              <span className="category-title-bar"></span>
+              <DynamicIcon name="MessageSquare" size={22} className="category-icon" />
+              <span>LANGUAGES</span>
+            </h3>
+            <div className="tech-grid">
+              {PORTFOLIO_DATA.techStack.languages.map((tech, idx) => (
+                <div key={idx} className="tech-card" title={tech.name}>
+                  <div className="tech-card-inner">
+                    <div className="tech-card-front">
+                      <img src={tech.logoUrl} alt={tech.name} className="tech-logo-img" style={tech.style} />
+                    </div>
+                    <div className="tech-card-back">
+                      <span>{tech.name}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Frameworks & Libraries Category */}
+          <div className="tech-category">
+            <h3 className="category-title">
+              <span className="category-title-bar"></span>
+              <DynamicIcon name="Hammer" size={22} className="category-icon" />
+              <span>FRAMEWORKS & LIBRARIES</span>
+            </h3>
+            <div className="tech-grid">
+              {PORTFOLIO_DATA.techStack.frameworks.map((tech, idx) => (
+                <div key={idx} className="tech-card" title={tech.name}>
+                  <div className="tech-card-inner">
+                    <div className="tech-card-front">
+                      <img src={tech.logoUrl} alt={tech.name} className="tech-logo-img" style={tech.style} />
+                    </div>
+                    <div className="tech-card-back">
+                      <span>{tech.name}</span>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Data Science / ML Pills */}
+            <div className="ml-pills-container">
+              {PORTFOLIO_DATA.techStack.mlPills.map((pill, idx) => (
+                <span key={idx} className={`ml-pill ${pill.className}`}>
+                  <span className="ml-pill-indicator">||</span>
+                  {pill.name}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Work (Projects) Section */}
       <section id="work">
