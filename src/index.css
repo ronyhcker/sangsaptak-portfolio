@@ -1,0 +1,129 @@
+:root {
+  --font-sans: 'Poppins', system-ui, -apple-system, sans-serif;
+  --bg-primary: #060814;
+  --bg-secondary: #0b0f24;
+  --bg-card: rgba(13, 19, 44, 0.45);
+  --bg-card-hover: rgba(18, 26, 60, 0.6);
+  --accent-primary: #3b82f6;
+  --accent-secondary: #a855f7;
+  --accent-glow: #60a5fa;
+  --accent-soft: rgba(59, 130, 246, 0.12);
+  --text-main: #f3f4f6;
+  --text-muted: #9ca3af;
+  --border-color: rgba(96, 165, 250, 0.15);
+  --border-hover: rgba(96, 165, 250, 0.35);
+  --radius-lg: 16px;
+  --radius-md: 12px;
+  --max-width: 1100px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+  line-height: 1.6;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Ambient Background Glowing Orbs */
+body::before,
+body::after {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+  filter: blur(100px);
+}
+
+body::before {
+  top: -150px;
+  left: -150px;
+  background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, rgba(168, 85, 247, 0.03) 60%, transparent 100%);
+  animation: floatOrb1 20s infinite alternate ease-in-out;
+}
+
+body::after {
+  bottom: -150px;
+  right: -150px;
+  background: radial-gradient(circle, rgba(168, 85, 247, 0.07) 0%, rgba(59, 130, 246, 0.03) 60%, transparent 100%);
+  animation: floatOrb2 25s infinite alternate ease-in-out;
+}
+
+@keyframes floatOrb1 {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(100px, 80px) scale(1.1);
+  }
+}
+
+@keyframes floatOrb2 {
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    transform: translate(-80px, -100px) scale(1.15);
+  }
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+section {
+  padding: 100px 24px;
+}
+
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(96, 165, 250, 0.25);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(96, 165, 250, 0.4);
+}
