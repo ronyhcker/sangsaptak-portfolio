@@ -98,7 +98,7 @@ const PORTFOLIO_DATA = {
     { name: 'React Developer Professional Certificate', issuer: 'Meta', date: '2024' },
     { name: 'Python for Data Science & ML', issuer: 'Coursera / IBM', date: '2024' }
   ],
-  photography: [
+  avocation: [
     { title: 'Abstract Sketch', type: 'Drawing Art', icon: 'Paintbrush' },
     { title: 'Kolkata Sunset', type: 'Photography', icon: 'Camera' },
     { title: 'Acoustic Performance', type: 'Vocal Performance', icon: 'Music' }
@@ -185,7 +185,7 @@ function App() {
       setIsScrolled(window.scrollY > 50);
 
       // Section tracker
-      const sections = ['home', 'about', 'work', 'internship', 'publications', 'certificates', 'photography', 'services', 'contact'];
+      const sections = ['home', 'about', 'work', 'internship', 'publications', 'certificates', 'avocation', 'services', 'contact'];
       let currentSection = 'home';
 
       for (const sectionId of sections) {
@@ -272,7 +272,7 @@ function App() {
               <li><a href="#internship" className={activeSection === 'internship' ? 'active' : ''}>Internship</a></li>
               <li><a href="#publications" className={activeSection === 'publications' ? 'active' : ''}>Publications</a></li>
               <li><a href="#certificates" className={activeSection === 'certificates' ? 'active' : ''}>Certificates</a></li>
-              <li><a href="#photography" className={activeSection === 'photography' ? 'active' : ''}>Photography</a></li>
+              <li><a href="#avocation" className={activeSection === 'avocation' ? 'active' : ''}>Avocation</a></li>
               <li><a href="#services" className={activeSection === 'services' ? 'active' : ''}>Services</a></li>
               <li><a href={PORTFOLIO_DATA.resumeUrl} className="cv-nav-link" download>CV</a></li>
               <li><a href="#contact" className={activeSection === 'contact' ? 'active' : ''}>Contact</a></li>
@@ -493,14 +493,14 @@ function App() {
         </div>
       </section>
 
-      {/* Photography & Drawing (Creative Gallery) */}
-      <section id="photography">
+      {/* Avocations Section */}
+      <section id="avocation">
         <div className="container">
-          <h2 className="section-title">Photography & Creative</h2>
-          <p className="section-subtitle">Showcase of creative drawing sketches and photography frames</p>
+          <h2 className="section-title">Avocation</h2>
+          <p className="section-subtitle">Showcase of creative drawing sketches, performance vocal covers, and photography frames</p>
 
           <div className="projects-grid">
-            {PORTFOLIO_DATA.photography.map((item, idx) => (
+            {PORTFOLIO_DATA.avocation.map((item, idx) => (
               <div key={idx} className="project-card" style={{ alignItems: 'center', textAlign: 'center' }}>
                 <div style={{ background: 'var(--accent-soft)', padding: '24px', borderRadius: '50%', marginBottom: '16px', display: 'inline-flex' }}>
                   <DynamicIcon name={item.icon} size={36} className="accent-text" />
