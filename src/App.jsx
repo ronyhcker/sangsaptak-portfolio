@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import * as Icons from 'lucide-react'
+import profileImg from './assets/profile.jpg'
 import './App.css'
 
 // Centralized portfolio data config for easy customization
@@ -12,8 +13,8 @@ const PORTFOLIO_DATA = {
   resumeUrl: '#',
   about: {
     paragraphs: [
-      "I'm Sangsaptak Das, a B.Tech Computer Science student specializing in Artificial Intelligence and Machine Learning. I enjoy solving real-world problems through code, and I'm constantly exploring new technologies across web development, AI, and backend systems.",
-      "My goal is to become a skilled software developer who builds impactful, user-focused applications while continuing to deepen my knowledge of machine learning and intelligent systems."
+      "I am a detail-oriented Computer Science & Engineering student at Brainware University, specialising in Artificial Intelligence and Machine Learning. Based in Kolkata, I am passionate about bridging the gap between robust software architecture and intelligent system design.",
+      "With a strong foundation in Python, Java, C/C++, and scalable backend databases, I focus on building stable applications. My technical toolkit is complemented by a creative background in singing and also drawing."
     ],
     objective: {
       title: 'Career Objective',
@@ -246,42 +247,59 @@ function App() {
           <h2 className="section-title">About Me</h2>
           <p className="section-subtitle">A little more about who I am and what I do</p>
 
-          <div className="about-grid">
-            <div className="about-text">
-              {PORTFOLIO_DATA.about.paragraphs.map((para, idx) => (
-                <p key={idx}>{para}</p>
-              ))}
-              
-              <div className="about-box">
-                <h3>
-                  <DynamicIcon name="Target" size={20} />
-                  {PORTFOLIO_DATA.about.objective.title}
-                </h3>
-                <p>{PORTFOLIO_DATA.about.objective.text}</p>
+          {/* Main Intro with Image */}
+          <div className="about-main-layout">
+            <div className="about-image-side">
+              <div className="about-image-frame">
+                <img src={profileImg} alt={PORTFOLIO_DATA.name} className="about-profile-img" />
               </div>
             </div>
-
-            <div className="about-info">
-              <div className="about-box">
-                <h3>
-                  <DynamicIcon name="GraduationCap" size={20} />
-                  Education
-                </h3>
-                <p className="edu-degree">{PORTFOLIO_DATA.about.education.degree}</p>
-                <div className="edu-meta">{PORTFOLIO_DATA.about.education.institution}</div>
-                <p>{PORTFOLIO_DATA.about.education.details}</p>
+            <div className="about-content-side">
+              <div className="about-tag">— WHO AM I —</div>
+              <h3 className="about-title-large">About <span className="accent-text">Me</span></h3>
+              <div className="about-paragraphs">
+                <p>
+                  I am a detail-oriented <strong>Computer Science & Engineering</strong> student at <strong>Brainware University</strong>, specialising in <strong>Artificial Intelligence and Machine Learning</strong>. Based in <strong>Kolkata</strong>, I am passionate about bridging the gap between robust software architecture and intelligent system design.
+                </p>
+                <p>
+                  With a strong foundation in Python, Java, C/C++, and scalable backend databases, I focus on building stable applications. My technical toolkit is complemented by a creative background in <strong>singing and also drawing</strong>.
+                </p>
               </div>
+            </div>
+          </div>
 
-              <div className="about-box">
-                <h3>
-                  <DynamicIcon name="Briefcase" size={20} />
-                  Focus Areas
-                </h3>
-                <div className="focus-tags">
-                  {PORTFOLIO_DATA.about.focusAreas.map((area, idx) => (
-                    <span key={idx} className="focus-tag">{area}</span>
-                  ))}
-                </div>
+          {/* Detail Boxes Grid */}
+          <div className="about-details-grid">
+            {/* Objective */}
+            <div className="about-box">
+              <h3>
+                <DynamicIcon name="Target" size={20} />
+                {PORTFOLIO_DATA.about.objective.title}
+              </h3>
+              <p>{PORTFOLIO_DATA.about.objective.text}</p>
+            </div>
+
+            {/* Education */}
+            <div className="about-box">
+              <h3>
+                <DynamicIcon name="GraduationCap" size={20} />
+                Education
+              </h3>
+              <p className="edu-degree">{PORTFOLIO_DATA.about.education.degree}</p>
+              <div className="edu-meta">{PORTFOLIO_DATA.about.education.institution}</div>
+              <p>{PORTFOLIO_DATA.about.education.details}</p>
+            </div>
+
+            {/* Focus Areas */}
+            <div className="about-box">
+              <h3>
+                <DynamicIcon name="Briefcase" size={20} />
+                Focus Areas
+              </h3>
+              <div className="focus-tags">
+                {PORTFOLIO_DATA.about.focusAreas.map((area, idx) => (
+                  <span key={idx} className="focus-tag">{area}</span>
+                ))}
               </div>
             </div>
           </div>
