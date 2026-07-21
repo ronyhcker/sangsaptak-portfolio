@@ -174,6 +174,30 @@ const DynamicIcon = ({ name, size = 24, className = "" }) => {
   return <IconComponent size={size} className={className} />;
 }
 
+// Helper component to render tech stack logos, supporting inline SVGs for unreliable assets
+const TechLogo = ({ tech }) => {
+  if (tech.logoUrl === 'cursor-inline') {
+    return (
+      <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="#0078d4" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className="tech-logo-img">
+        <polygon points="3 3 10.07 19.97 12.58 12.58 19.97 10.07 3 3" fill="#0078d4" />
+      </svg>
+    );
+  }
+  
+  if (tech.logoUrl === 'midjourney-inline') {
+    return (
+      <svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="tech-logo-img">
+        <path d="M12 2v16" />
+        <path d="M12 2c0 0 7 4 7 10s-7 6-7 6" />
+        <path d="M12 2c0 0-7 4-7 10s7 6-7 6" />
+        <path d="M3 20c0 0 3 2 9 2s9-2 9-2" />
+      </svg>
+    );
+  }
+
+  return <img src={tech.logoUrl} alt={tech.name} className="tech-logo-img" style={tech.style} />;
+}
+
 function App() {
   const [activeSection, setActiveSection] = useState('home');
   const [isScrolled, setIsScrolled] = useState(false);
@@ -450,7 +474,7 @@ function App() {
                 <div key={idx} className="tech-card" title={tech.name}>
                   <div className="tech-card-inner">
                     <div className="tech-card-front">
-                      <img src={tech.logoUrl} alt={tech.name} className="tech-logo-img" style={tech.style} />
+                      <TechLogo tech={tech} />
                     </div>
                     <div className="tech-card-back">
                       <span>{tech.name}</span>
@@ -473,7 +497,7 @@ function App() {
                 <div key={idx} className="tech-card" title={tech.name}>
                   <div className="tech-card-inner">
                     <div className="tech-card-front">
-                      <img src={tech.logoUrl} alt={tech.name} className="tech-logo-img" style={tech.style} />
+                      <TechLogo tech={tech} />
                     </div>
                     <div className="tech-card-back">
                       <span>{tech.name}</span>
@@ -506,7 +530,7 @@ function App() {
                 <div key={idx} className="tech-card" title={tech.name}>
                   <div className="tech-card-inner">
                     <div className="tech-card-front">
-                      <img src={tech.logoUrl} alt={tech.name} className="tech-logo-img" style={tech.style} />
+                      <TechLogo tech={tech} />
                     </div>
                     <div className="tech-card-back">
                       <span>{tech.name}</span>
@@ -529,7 +553,7 @@ function App() {
                 <div key={idx} className="tech-card" title={tech.name}>
                   <div className="tech-card-inner">
                     <div className="tech-card-front">
-                      <img src={tech.logoUrl} alt={tech.name} className="tech-logo-img" style={tech.style} />
+                      <TechLogo tech={tech} />
                     </div>
                     <div className="tech-card-back">
                       <span>{tech.name}</span>
@@ -552,7 +576,7 @@ function App() {
                 <div key={idx} className="tech-card" title={tech.name}>
                   <div className="tech-card-inner">
                     <div className="tech-card-front">
-                      <img src={tech.logoUrl} alt={tech.name} className="tech-logo-img" style={tech.style} />
+                      <TechLogo tech={tech} />
                     </div>
                     <div className="tech-card-back">
                       <span>{tech.name}</span>
