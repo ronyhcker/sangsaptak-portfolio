@@ -70,14 +70,14 @@ const PORTFOLIO_DATA = {
       { name: 'Netlify', logoUrl: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/netlify/netlify-original.svg' }
     ],
     aiTools: [
-      { name: 'Copilot', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/githubcopilot.svg', style: { filter: 'invert(1)' } },
-      { name: 'ChatGPT', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/openai.svg' },
-      { name: 'Cursor', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/cursor.svg' },
-      { name: 'Claude', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/claude.svg' },
-      { name: 'Midjourney', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/midjourney.svg', style: { filter: 'invert(1)' } },
-      { name: 'Gemini', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/googlegemini.svg' },
-      { name: 'Ollama', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/ollama.svg', style: { filter: 'invert(1)' } },
-      { name: 'Hugging Face', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@v13/icons/huggingface.svg' }
+      { name: 'Copilot', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/githubcopilot.svg', style: { filter: 'invert(1)' } },
+      { name: 'ChatGPT', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/openai.svg', style: { filter: 'invert(1)' } },
+      { name: 'Cursor', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/cursor.svg', style: { filter: 'invert(1)' } },
+      { name: 'Claude', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/claude.svg', style: { filter: 'invert(1)' } },
+      { name: 'Midjourney', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/midjourney.svg', style: { filter: 'invert(1)' } },
+      { name: 'Gemini', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/googlegemini.svg', style: { filter: 'invert(1)' } },
+      { name: 'Ollama', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/ollama.svg', style: { filter: 'invert(1)' } },
+      { name: 'Hugging Face', logoUrl: 'https://cdn.jsdelivr.net/npm/simple-icons@latest/icons/huggingface.svg', style: { filter: 'invert(1)' } }
     ],
     mlPills: [
       { name: 'PANDAS', className: 'pill-purple' },
