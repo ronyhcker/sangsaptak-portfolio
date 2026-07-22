@@ -540,8 +540,9 @@ function App() {
               className="hero-buttons"
             >
               <motion.a 
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 href={PORTFOLIO_DATA.resumeUrl} 
                 className="btn btn-primary hero-btn-cv"
                 download
@@ -550,8 +551,9 @@ function App() {
                 Download CV
               </motion.a>
               <motion.a 
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
+                whileHover={{ scale: 1.04, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                transition={{ type: "spring", stiffness: 400, damping: 25 }}
                 href="#contact" 
                 className="btn btn-outline hero-btn-contact"
               >
