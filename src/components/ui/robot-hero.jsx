@@ -298,30 +298,34 @@ export function RobotPrototype({ neckParams = { baseR: 0.25, baseH: -0.01, midR:
     const ty = state.pointer.y;
 
     // Smooth idle floating and breathing motion
-    const floatY = Math.sin(time * 1.8) * 0.08;
-    const floatX = Math.cos(time * 1.2) * 0.03;
-    const breathScale = 1 + Math.sin(time * 2.5) * 0.012;
+    const floatY = Math.sin(time * 1.5) * 0.06;
+    const floatX = Math.cos(time * 1.0) * 0.02;
+    const breathScale = 1 + Math.sin(time * 2.2) * 0.01;
+
+    // Occasional subtle head movement (nods & natural micro-tilts)
+    const headNod = Math.sin(time * 0.7) * 0.03 + Math.cos(time * 0.35) * 0.02;
+    const headTilt = Math.sin(time * 0.5) * 0.025;
 
     // Smooth subtle mouse parallax within container
-    const targetPosX = tx * 0.3 + floatX;
+    const targetPosX = tx * 0.25 + floatX;
     const targetPosY = floatY;
 
-    bodyRef.current.position.x = THREE.MathUtils.lerp(bodyRef.current.position.x, targetPosX, config.moveSpeed * dt * 5);
-    bodyRef.current.position.y = THREE.MathUtils.lerp(bodyRef.current.position.y, targetPosY, config.moveSpeed * dt * 5);
+    bodyRef.current.position.x = THREE.MathUtils.lerp(bodyRef.current.position.x, targetPosX, config.moveSpeed * dt * 4);
+    bodyRef.current.position.y = THREE.MathUtils.lerp(bodyRef.current.position.y, targetPosY, config.moveSpeed * dt * 4);
     bodyRef.current.scale.set(breathScale, breathScale, breathScale);
 
     const relativeX = tx;
 
-    const bodyTargetRotY = -relativeX * 0.45; 
-    const bodyTargetRotX = (relativeX * relativeX * 0.1) - (ty * 0.15); 
-    const bodyTargetRotZ = -relativeX * 0.08; 
+    const bodyTargetRotY = -relativeX * 0.35; 
+    const bodyTargetRotX = (relativeX * relativeX * 0.08) - (ty * 0.12); 
+    const bodyTargetRotZ = -relativeX * 0.06 + headTilt; 
     
     bodyRef.current.rotation.y = THREE.MathUtils.lerp(bodyRef.current.rotation.y, bodyTargetRotY, config.bodyRotSpeed * dt);
     bodyRef.current.rotation.x = THREE.MathUtils.lerp(bodyRef.current.rotation.x, bodyTargetRotX, config.bodyRotSpeed * dt);
     bodyRef.current.rotation.z = THREE.MathUtils.lerp(bodyRef.current.rotation.z, bodyTargetRotZ, config.bodyRotSpeed * dt);
 
-    const headTargetRotY = relativeX * 0.95; 
-    const headTargetRotX = -ty * 0.45 + Math.sin(time * 1.4) * 0.02; 
+    const headTargetRotY = relativeX * 0.85; 
+    const headTargetRotX = -ty * 0.35 + headNod; 
     
     headRef.current.rotation.y = THREE.MathUtils.lerp(headRef.current.rotation.y, headTargetRotY, config.headRotSpeed * dt);
     headRef.current.rotation.x = THREE.MathUtils.lerp(headRef.current.rotation.x, headTargetRotX, config.headRotSpeed * dt);
@@ -481,6 +485,12 @@ export function RobotCanvas({ className = "w-full h-full min-h-[350px]" }) {
       >
         <ambientLight intensity={entorno.luzAmbiente} color="#ffffff" />
         
+        {/* Soft Cyan Rim Light for Silhouette Glow */}
+        <directionalLight position={[4, 3, -2]} intensity={1.2} color="#00f0ff" />
+        
+        {/* Soft Purple Fill Light */}
+        <directionalLight position={[-4, 2, -2]} intensity={0.6} color="#a855f7" />
+        
         <directionalLight 
           position={[0, 6, 3]} 
           intensity={entorno.luzPrincipal} 
@@ -492,6 +502,9 @@ export function RobotCanvas({ className = "w-full h-full min-h-[350px]" }) {
         <directionalLight position={[-5, 2, -5]} intensity={entorno.luzRelleno} color={entorno.luzRellenoColor} />
 
         <Environment preset="studio" blur={0.5} />
+
+        {/* Soft Contact Shadow Under Robot */}
+        <ContactShadows position={[0, -1.35, 0]} opacity={0.5} scale={4.5} blur={2.5} far={4} color="#00f0ff" />
 
         <ResponsiveGroup>
           <RobotPrototype 
