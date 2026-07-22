@@ -465,6 +465,8 @@ export function RobotCanvas({ className = "w-full h-full min-h-[350px]" }) {
     <div className={className}>
       <Canvas 
         shadows 
+        gl={{ alpha: true, antialias: true }}
+        style={{ background: 'transparent' }}
         camera={{ position: [0, 0.1, 4.8], fov: 38 }}
       >
         <ambientLight intensity={entorno.luzAmbiente} color="#ffffff" />

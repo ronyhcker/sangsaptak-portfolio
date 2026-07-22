@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import * as Icons from 'lucide-react'
 import profileImg from './assets/profile.jpg'
 import { RobotCanvas } from './components/ui/robot-hero'
+import AnimatedShaderBackground from './components/ui/animated-shader-background'
 import './App.css'
 
 // Centralized portfolio data config for easy customization
@@ -358,6 +359,10 @@ function App() {
 
       {/* Hero Section */}
       <section className="hero" id="home">
+        {/* Animated WebGL Shader Background */}
+        <AnimatedShaderBackground className="hero-shader-bg" />
+        <div className="hero-shader-overlay" />
+
         <div className="hero-container">
           <div className="hero-left">
             <div className="hero-tag">
