@@ -410,13 +410,12 @@ header.luxury-header.scrolled nav.luxury-navbar {
   display: inline-block;
 }
 
-.hero-description {
-  font-size: 1.05rem;
-  line-height: 1.85;
-  color: rgba(248, 250, 252, 0.78);
-  max-width: 500px;
+.hero-tagline {
+  font-size: 0.96rem;
+  font-weight: 450;
+  color: rgba(248, 250, 252, 0.72);
+  letter-spacing: 0.3px;
   margin-bottom: 24px;
-  font-weight: 350;
 }
 
 /* Status Pill Cards */

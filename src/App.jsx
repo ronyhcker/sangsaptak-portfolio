@@ -564,14 +564,14 @@ function App() {
               </AnimatePresence>
             </motion.div>
 
-            {/* Description */}
+            {/* Elegant Premium Tagline */}
             <motion.p 
-              initial={{ opacity: 0, y: 25 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, delay: 0.35 }}
-              className="hero-description"
+              className="hero-tagline"
             >
-              I build modern, scalable software powered by Artificial Intelligence and clean engineering principles. Currently pursuing Computer Science with a specialization in AI &amp; Machine Learning while continuously learning and building impactful real-world projects.
+              Building with code, driven by curiosity.
             </motion.p>
 
             {/* Status Cards */}
