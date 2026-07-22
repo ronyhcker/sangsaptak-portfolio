@@ -585,7 +585,6 @@ function App() {
               <motion.span whileHover={{ y: -2 }} className="hero-stat-pill">2028 Graduate</motion.span>
               <motion.span whileHover={{ y: -2 }} className="hero-stat-pill">Python • Java • C</motion.span>
               <motion.span whileHover={{ y: -2 }} className="hero-stat-pill">AI &amp; ML</motion.span>
-              <motion.span whileHover={{ y: -2 }} className="hero-stat-pill highlight-pill">Open to Internships</motion.span>
             </motion.div>
 
             {/* Action Buttons */}
