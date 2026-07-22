@@ -424,8 +424,8 @@ function App() {
         <AnimatedShaderBackground className="hero-shader-bg" />
         <div className="hero-shader-overlay" />
 
-        <div className="hero-container">
-          <div className="hero-left">
+        <div className="hero-container hero-centered">
+          <div className="hero-content-center">
             <div className="hero-tag">
               <DynamicIcon name="Sparkles" size={16} />
               <span>{PORTFOLIO_DATA.tag}</span>
@@ -450,7 +450,7 @@ function App() {
             </div>
           </div>
 
-          <div className="hero-right">
+          <div className="hero-robot-center">
             <RobotCanvas className="hero-robot-canvas" />
           </div>
         </div>
