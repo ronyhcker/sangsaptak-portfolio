@@ -1,32 +1,41 @@
 /* ===========================
-   Header / Navbar
+   Apple x Vercel Inspired Luxury Floating Header / Navbar
 =========================== */
-header {
+header.luxury-header {
   position: fixed;
-  top: 0;
+  top: 18px;
   left: 0;
-  width: 100%;
+  right: 0;
   z-index: 1000;
-  background: rgba(3, 7, 18, 0.75);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--border-color);
-  transition: all 0.3s ease;
-}
-
-header.scrolled {
-  background: rgba(3, 7, 18, 0.9);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
-}
-
-.navbar {
-  max-width: 1400px;
   width: 100%;
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  background: transparent;
+  pointer-events: none;
+}
+
+nav.luxury-navbar {
+  max-width: 1120px;
+  width: calc(100% - 48px);
   margin: 0 auto;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 16px 40px;
+  padding: 12px 28px;
+  background: rgba(13, 20, 42, 0.65);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: auto;
+}
+
+header.luxury-header.scrolled nav.luxury-navbar {
+  padding: 8px 24px;
+  background: rgba(10, 15, 30, 0.88);
+  border-color: rgba(56, 189, 248, 0.2);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.5);
 }
 
 .navbar-logo-container {
@@ -34,22 +43,24 @@ header.scrolled {
   align-items: center;
   gap: 10px;
   cursor: pointer;
+  transition: transform 0.3s ease;
 }
 
 .navbar-logo-img {
-  height: 32px;
+  height: 30px;
   width: auto;
   object-fit: contain;
-  filter: drop-shadow(0 0 10px rgba(0, 85, 255, 0.5));
-  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  filter: drop-shadow(0 0 8px rgba(0, 85, 255, 0.4));
+  transition: filter 0.3s ease, transform 0.3s ease;
 }
 
 .navbar-logo-container:hover .navbar-logo-img {
-  transform: scale(1.12);
+  filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.7));
+  transform: scale(1.08);
 }
 
 .navbar-brand-name {
-  font-size: 1.15rem;
+  font-size: 1.08rem;
   font-weight: 700;
   color: var(--text-main);
   letter-spacing: -0.3px;
@@ -65,121 +76,136 @@ header.scrolled {
   animation: pulseDot 2s infinite;
 }
 
-@keyframes pulseDot {
-  0% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
-  }
-  70% {
-    transform: scale(1);
-    box-shadow: 0 0 0 6px rgba(34, 197, 94, 0);
-  }
-  100% {
-    transform: scale(0.95);
-    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
-  }
-}
-
-.navbar-links-pill-container {
+.luxury-nav-pill-container {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-.nav-links-pill {
-  background: rgba(13, 19, 44, 0.65);
-  border: 1px solid rgba(96, 165, 250, 0.12);
-  border-radius: 50px;
-  padding: 4px 8px;
+.luxury-nav-links {
   display: flex;
-  gap: 4px;
   align-items: center;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
+  gap: 20px;
+  list-style: none;
+  margin: 0;
+  padding: 0;
 }
 
-.nav-links-pill a {
-  color: var(--text-muted);
+.luxury-nav-link {
+  position: relative;
   font-size: 0.88rem;
   font-weight: 500;
-  padding: 6px 14px;
-  border-radius: 20px;
-  transition: all 0.25s ease;
+  color: rgba(248, 250, 252, 0.7);
   text-decoration: none;
-  border: 1px solid transparent;
+  padding: 6px 4px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  letter-spacing: -0.01em;
 }
 
-.nav-links-pill a:hover {
-  color: var(--text-main);
-  background: rgba(255, 255, 255, 0.04);
+.luxury-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, #38bdf8, #60a5fa);
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+  border-radius: 2px;
+  opacity: 0;
 }
 
-.nav-links-pill a.active {
-  background: rgba(255, 255, 255, 0.08);
-  border-color: rgba(255, 255, 255, 0.15);
-  color: var(--text-main);
+.luxury-nav-link:hover {
+  color: #ffffff;
+  transform: translateY(-2px);
+  text-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
+}
+
+.luxury-nav-link:hover::after {
+  width: 100%;
+  opacity: 1;
+}
+
+/* Minimal & Elegant Active State */
+.luxury-nav-link.active {
+  color: #ffffff;
   font-weight: 600;
+  text-shadow: 0 0 12px rgba(56, 189, 248, 0.6);
 }
 
-.cv-nav-link {
-  color: var(--accent-glow) !important;
+.luxury-nav-link.active::after {
+  width: 100%;
+  opacity: 1;
+  background: linear-gradient(90deg, #38bdf8, #60a5fa);
+  box-shadow: 0 0 8px #38bdf8;
 }
 
-.cv-nav-link:hover {
-  background: var(--accent-soft) !important;
+.active-accent-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #38bdf8;
+  box-shadow: 0 0 8px #38bdf8;
+  margin-top: 3px;
+  animation: pulseDot 1.8s infinite;
+  position: absolute;
+  bottom: -6px;
 }
 
-.navbar-aivox-btn {
-  background: rgba(168, 85, 247, 0.06);
-  border: 1px solid rgba(168, 85, 247, 0.25);
-  border-radius: 30px;
-  padding: 8px 18px;
+.resume-nav-link {
+  color: #38bdf8 !important;
+  font-weight: 600 !important;
+}
+
+.resume-nav-link:hover {
+  text-shadow: 0 0 12px rgba(56, 189, 248, 0.8) !important;
+}
+
+/* Right Action Button - Ask AI */
+.navbar-ask-ai-btn {
   display: flex;
   align-items: center;
   gap: 8px;
+  padding: 7px 16px;
+  background: rgba(147, 51, 234, 0.12);
+  border: 1px solid rgba(168, 85, 247, 0.3);
+  border-radius: 20px;
+  color: #e9d5ff;
+  font-size: 0.85rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.3s ease;
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.2);
   outline: none;
 }
 
-.navbar-aivox-btn:hover,
-.navbar-aivox-btn.active {
+.navbar-ask-ai-btn:hover,
+.navbar-ask-ai-btn.active {
+  background: rgba(147, 51, 234, 0.22);
   border-color: rgba(168, 85, 247, 0.6);
-  background: rgba(168, 85, 247, 0.15);
-  box-shadow: 0 0 15px rgba(168, 85, 247, 0.35);
+  box-shadow: 0 0 22px rgba(168, 85, 247, 0.45);
+  color: #ffffff;
 }
 
-.aivox-purple-orb {
-  width: 10px;
-  height: 10px;
+.ask-ai-purple-orb {
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   background-color: #a855f7;
-  box-shadow: 0 0 10px #a855f7;
+  box-shadow: 0 0 8px #a855f7;
   display: inline-block;
   animation: pulseOrb 2s infinite ease-in-out;
 }
 
-.aivox-purple-orb.small {
-  width: 8px;
-  height: 8px;
-}
-
-@keyframes pulseOrb {
-  0%, 100% {
-    transform: scale(1);
-    filter: brightness(1);
-  }
-  50% {
-    transform: scale(1.15);
-    filter: brightness(1.3);
-  }
-}
-
-.aivox-text {
-  font-size: 0.9rem;
-  font-weight: 700;
+.ask-ai-text {
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
   color: #fff;
-  letter-spacing: 0.5px;
 }
 
 /* ===========================

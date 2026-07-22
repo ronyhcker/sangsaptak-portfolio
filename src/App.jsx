@@ -397,9 +397,14 @@ function App() {
         </div>
       )}
 
-      {/* Navigation Bar */}
-      <header className={isScrolled ? 'scrolled' : ''}>
-        <nav className="navbar">
+      {/* Navigation Bar - Apple x Vercel Inspired Luxury Floating Glass */}
+      <motion.header 
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6 }}
+        className={`luxury-header ${isScrolled ? 'scrolled' : ''}`}
+      >
+        <nav className="luxury-navbar">
           {/* Left Brand Area */}
           <div className="navbar-logo-container">
             <img src={sdLogoImg} alt="SD Logo" className="navbar-logo-img" />
@@ -407,33 +412,72 @@ function App() {
             <span className="navbar-status-dot" title="Available for opportunities"></span>
           </div>
 
-          {/* Center Navigation Links Pill */}
-          <div className="navbar-links-pill-container">
-            <ul className="nav-links-pill">
-              <li><a href="#home" className={activeSection === 'home' ? 'active' : ''}>Home</a></li>
-              <li><a href="#about" className={activeSection === 'about' ? 'active' : ''}>About</a></li>
-              <li><a href="#work" className={activeSection === 'work' ? 'active' : ''}>Work</a></li>
-              <li><a href="#internship" className={activeSection === 'internship' ? 'active' : ''}>Internship</a></li>
-              <li><a href="#publications" className={activeSection === 'publications' ? 'active' : ''}>Publications</a></li>
-              <li><a href="#certificates" className={activeSection === 'certificates' ? 'active' : ''}>Certificates</a></li>
-              <li><a href="#avocation" className={activeSection === 'avocation' ? 'active' : ''}>Avocation</a></li>
-              <li><a href="#services" className={activeSection === 'services' ? 'active' : ''}>Services</a></li>
-              <li><a href={PORTFOLIO_DATA.resumeUrl} className="cv-nav-link" download>CV</a></li>
-              <li><a href="#contact" className={activeSection === 'contact' ? 'active' : ''}>Contact</a></li>
+          {/* Center Navigation Links Floating Glass Pill */}
+          <div className="luxury-nav-pill-container">
+            <ul className="luxury-nav-links">
+              <li>
+                <a href="#home" className={`luxury-nav-link ${activeSection === 'home' ? 'active' : ''}`}>
+                  Home
+                  {activeSection === 'home' && <span className="active-accent-dot" />}
+                </a>
+              </li>
+              <li>
+                <a href="#about" className={`luxury-nav-link ${activeSection === 'about' ? 'active' : ''}`}>
+                  About
+                  {activeSection === 'about' && <span className="active-accent-dot" />}
+                </a>
+              </li>
+              <li>
+                <a href="#skills" className={`luxury-nav-link ${activeSection === 'skills' ? 'active' : ''}`}>
+                  Skills
+                  {activeSection === 'skills' && <span className="active-accent-dot" />}
+                </a>
+              </li>
+              <li>
+                <a href="#work" className={`luxury-nav-link ${activeSection === 'work' ? 'active' : ''}`}>
+                  Projects
+                  {activeSection === 'work' && <span className="active-accent-dot" />}
+                </a>
+              </li>
+              <li>
+                <a href="#internship" className={`luxury-nav-link ${activeSection === 'internship' ? 'active' : ''}`}>
+                  Experience
+                  {activeSection === 'internship' && <span className="active-accent-dot" />}
+                </a>
+              </li>
+              <li>
+                <a href="#publications" className={`luxury-nav-link ${activeSection === 'publications' || activeSection === 'certificates' ? 'active' : ''}`}>
+                  Achievements
+                  {(activeSection === 'publications' || activeSection === 'certificates') && <span className="active-accent-dot" />}
+                </a>
+              </li>
+              <li>
+                <a href="#contact" className={`luxury-nav-link ${activeSection === 'contact' ? 'active' : ''}`}>
+                  Contact
+                  {activeSection === 'contact' && <span className="active-accent-dot" />}
+                </a>
+              </li>
+              <li>
+                <a href={PORTFOLIO_DATA.resumeUrl} className="luxury-nav-link resume-nav-link" download>
+                  Resume
+                </a>
+              </li>
             </ul>
           </div>
 
-          {/* Right Aivox Action Button */}
-          <button 
-            className={`navbar-aivox-btn ${chatOpen ? 'active' : ''}`} 
+          {/* Right Action Button - Ask AI */}
+          <motion.button 
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.98 }}
+            className={`navbar-ask-ai-btn ${chatOpen ? 'active' : ''}`} 
             onClick={() => setChatOpen(!chatOpen)}
             title="Chat with AI Assistant"
           >
-            <span className="aivox-purple-orb"></span>
-            <span className="aivox-text">Aivox</span>
-          </button>
+            <span className="ask-ai-purple-orb"></span>
+            <span className="ask-ai-text">Ask AI</span>
+          </motion.button>
         </nav>
-      </header>
+      </motion.header>
 
       {/* Hero Section - Upgraded Two-Column Layout */}
       <section className="hero" id="home">
