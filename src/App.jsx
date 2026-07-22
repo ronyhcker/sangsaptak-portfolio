@@ -1,9 +1,11 @@
 import { useState, useEffect, useRef } from 'react'
+import { motion } from 'framer-motion'
 import * as Icons from 'lucide-react'
 import profileImg from './assets/profile.jpg'
 import sdLogoImg from './assets/sd-logo.png'
 import { RobotCanvas } from './components/ui/robot-hero'
 import AnimatedShaderBackground from './components/ui/animated-shader-background'
+import HologramAvatarCanvas from './components/ui/hologram-avatar'
 import './App.css'
 
 // Centralized portfolio data config for easy customization
@@ -231,6 +233,21 @@ function App() {
   const [gitHubUser, setGitHubUser] = useState(null);
   const [reposLoading, setReposLoading] = useState(true);
 
+  // About Section Hologram Glass Card Mouse 3D Tilt State
+  const [aboutTilt, setAboutTilt] = useState({ x: 0, y: 0 });
+  const handleAboutCardMouseMove = (e) => {
+    const card = e.currentTarget;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    const rotateX = -(y / (rect.height / 2)) * 10;
+    const rotateY = (x / (rect.width / 2)) * 10;
+    setAboutTilt({ x: rotateX, y: rotateY });
+  };
+  const handleAboutCardMouseLeave = () => {
+    setAboutTilt({ x: 0, y: 0 });
+  };
+
   // Aivox Chatbot state
   const [chatOpen, setChatOpen] = useState(false);
   const [chatMessages, setChatMessages] = useState([
@@ -456,46 +473,102 @@ function App() {
         </div>
       </section>
 
-      {/* About Section */}
-      <section id="about">
-        <div className="container">
-          <h2 className="section-title">About Me</h2>
-          <p className="section-subtitle">A little more about who I am and what I do</p>
+      {/* About Section - Upgraded Futuristic Hologram Glassmorphism */}
+      <section id="about" className="about-futuristic-section">
+        {/* Soft Gradients & Blurred Glowing Orbs Background */}
+        <div className="about-orb about-orb-cyan" />
+        <div className="about-orb about-orb-blue" />
+        <div className="about-orb about-orb-purple" />
+        <div className="about-cyber-grid" />
 
-          {/* Main Intro with Image */}
-          <div className="about-main-layout">
-            <div className="about-image-side">
-              <div className="about-image-frame">
-                <img src={profileImg} alt={PORTFOLIO_DATA.name} className="about-profile-img" />
+        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
+          <motion.div 
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="about-header-wrapper"
+          >
+            <div className="about-futuristic-badge">
+              <span className="live-status-dot"></span>
+              <span>BIOGRAPHY & CREDENTIALS</span>
+            </div>
+            <h2 className="section-title">About <span className="accent-text">Me</span></h2>
+            <p className="section-subtitle">A little more about who I am, my academic path, and technical focus</p>
+          </motion.div>
+
+          {/* 3D Tilt Floating Hologram Glass Card */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.96, y: 40 }}
+            whileInView={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            viewport={{ once: true }}
+            className="hologram-glass-card"
+            onMouseMove={handleAboutCardMouseMove}
+            onMouseLeave={handleAboutCardMouseLeave}
+            style={{
+              transform: `perspective(1000px) rotateX(${aboutTilt.x}deg) rotateY(${aboutTilt.y}deg)`,
+              transition: aboutTilt.x === 0 ? 'transform 0.5s ease-out' : 'transform 0.1s ease-out'
+            }}
+          >
+            <div className="hologram-card-glow-border" />
+            
+            <div className="about-main-layout">
+              {/* Left Side: 3D Hologram Avatar Canvas */}
+              <div className="about-image-side">
+                <div className="hologram-avatar-container">
+                  <div className="hologram-avatar-glow-ring" />
+                  <HologramAvatarCanvas className="about-hologram-canvas" />
+                  <div className="hologram-status-pill">
+                    <span className="hologram-pulse-dot" />
+                    <span>3D HOLOGRAM AVATAR</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Side: Intro & Paragraphs */}
+              <div className="about-content-side">
+                <div className="about-tag">— WHO AM I —</div>
+                <h3 className="about-title-large">
+                  Bridging <span className="accent-text">Software & AI</span> Solutions
+                </h3>
+                <div className="about-paragraphs">
+                  <p>
+                    I am a detail-oriented <strong>Computer Science & Engineering</strong> student at <strong>Brainware University</strong>, specialising in <strong>Artificial Intelligence and Machine Learning</strong>. Based in <strong>Kolkata</strong>, I am passionate about bridging the gap between robust software architecture and intelligent system design.
+                  </p>
+                  <p>
+                    With a strong foundation in Python, Java, C/C++, and scalable backend databases, I focus on building stable applications. My technical toolkit is complemented by a creative background in <strong>singing and also drawing</strong>.
+                  </p>
+                </div>
               </div>
             </div>
-            <div className="about-content-side">
-              <div className="about-tag">— WHO AM I —</div>
-              <h3 className="about-title-large">About <span className="accent-text">Me</span></h3>
-              <div className="about-paragraphs">
-                <p>
-                  I am a detail-oriented <strong>Computer Science & Engineering</strong> student at <strong>Brainware University</strong>, specialising in <strong>Artificial Intelligence and Machine Learning</strong>. Based in <strong>Kolkata</strong>, I am passionate about bridging the gap between robust software architecture and intelligent system design.
-                </p>
-                <p>
-                  With a strong foundation in Python, Java, C/C++, and scalable backend databases, I focus on building stable applications. My technical toolkit is complemented by a creative background in <strong>singing and also drawing</strong>.
-                </p>
-              </div>
-            </div>
-          </div>
+          </motion.div>
 
-          {/* Detail Boxes Grid */}
+          {/* Detail Boxes Grid with Staggered Entrance */}
           <div className="about-details-grid">
             {/* Objective */}
-            <div className="about-box">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.3 }}
+              viewport={{ once: true }}
+              className="about-box hologram-box"
+            >
               <h3>
                 <DynamicIcon name="Target" size={20} />
                 {PORTFOLIO_DATA.about.objective.title}
               </h3>
               <p>{PORTFOLIO_DATA.about.objective.text}</p>
-            </div>
+            </motion.div>
 
             {/* Education */}
-            <div className="about-box">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.4 }}
+              viewport={{ once: true }}
+              className="about-box hologram-box"
+            >
               <h3>
                 <DynamicIcon name="GraduationCap" size={20} />
                 Education
@@ -503,10 +576,16 @@ function App() {
               <p className="edu-degree">{PORTFOLIO_DATA.about.education.degree}</p>
               <div className="edu-meta">{PORTFOLIO_DATA.about.education.institution}</div>
               <p>{PORTFOLIO_DATA.about.education.details}</p>
-            </div>
+            </motion.div>
 
             {/* Focus Areas */}
-            <div className="about-box">
+            <motion.div 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.5 }}
+              viewport={{ once: true }}
+              className="about-box hologram-box"
+            >
               <h3>
                 <DynamicIcon name="Briefcase" size={20} />
                 Focus Areas
@@ -516,7 +595,7 @@ function App() {
                   <span key={idx} className="focus-tag">{area}</span>
                 ))}
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </section>

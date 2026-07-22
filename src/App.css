@@ -437,17 +437,126 @@ header.scrolled {
 }
 
 /* ===========================
-   About Section
+   Futuristic Hologram About Section
 =========================== */
+.about-futuristic-section {
+  position: relative;
+  overflow: hidden;
+  padding: 120px 0;
+  background: radial-gradient(circle at 50% 30%, rgba(15, 23, 42, 0.95) 0%, rgba(3, 7, 18, 1) 100%);
+}
+
+.about-header-wrapper {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.about-futuristic-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 16px;
+  background: rgba(0, 240, 255, 0.08);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  border-radius: 20px;
+  color: #00f0ff;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 16px;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.15);
+}
+
+/* Background Soft Glowing Orbs */
+.about-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(100px);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.45;
+}
+
+.about-orb-cyan {
+  width: 450px;
+  height: 450px;
+  background: rgba(0, 240, 255, 0.3);
+  top: 10%;
+  left: -10%;
+  animation: orbPulse 8s infinite alternate ease-in-out;
+}
+
+.about-orb-blue {
+  width: 500px;
+  height: 500px;
+  background: rgba(0, 85, 255, 0.35);
+  bottom: 5%;
+  right: -10%;
+  animation: orbPulse 10s infinite alternate ease-in-out;
+}
+
+.about-orb-purple {
+  width: 350px;
+  height: 350px;
+  background: rgba(147, 51, 234, 0.25);
+  top: 50%;
+  left: 35%;
+  animation: orbPulse 7s infinite alternate ease-in-out;
+}
+
+@keyframes orbPulse {
+  0% { transform: scale(0.9) translateY(0); opacity: 0.35; }
+  100% { transform: scale(1.15) translateY(-30px); opacity: 0.6; }
+}
+
+.about-cyber-grid {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Floating 3D Hologram Glass Card */
+.hologram-glass-card {
+  background: rgba(13, 20, 42, 0.65);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  border-radius: var(--radius-xl);
+  padding: 48px;
+  margin-bottom: 40px;
+  position: relative;
+  box-shadow: 0 25px 60px rgba(0, 85, 255, 0.25), inset 0 0 30px rgba(0, 240, 255, 0.08);
+  transform-style: preserve-3d;
+}
+
+.hologram-card-glow-border {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  border-radius: var(--radius-xl);
+  background: linear-gradient(135deg, rgba(0, 240, 255, 0.4), transparent 40%, rgba(0, 102, 255, 0.4));
+  pointer-events: none;
+  z-index: -1;
+}
+
 .about-main-layout {
   display: grid;
   grid-template-columns: 1fr 1.8fr;
   gap: 50px;
   align-items: center;
-  margin-bottom: 50px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 868px) {
   .about-main-layout {
     grid-template-columns: 1fr;
     gap: 30px;
@@ -459,91 +568,72 @@ header.scrolled {
   justify-content: center;
 }
 
-.about-image-frame {
+.hologram-avatar-container {
   position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   width: 100%;
-  max-width: 320px;
-  aspect-ratio: 4/5;
-  border-radius: 24px;
-  padding: 6px;
-  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
-  box-shadow: 0 10px 30px rgba(59, 130, 246, 0.25);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  max-width: 340px;
 }
 
-.about-image-frame:hover {
-  transform: scale(1.02);
-  box-shadow: 0 15px 40px rgba(59, 130, 246, 0.4);
+.hologram-avatar-glow-ring {
+  position: absolute;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.3) 0%, rgba(0, 85, 255, 0.1) 60%, transparent 80%);
+  filter: blur(25px);
+  pointer-events: none;
 }
 
-.about-profile-img {
+.about-hologram-canvas {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 18px;
-  display: block;
-  border: 4px solid var(--bg-primary);
+  height: 320px;
 }
 
-.about-content-side {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  padding: 40px;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  text-align: left;
+.hologram-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: -10px;
+  padding: 6px 14px;
+  background: rgba(3, 7, 18, 0.8);
+  border: 1px solid rgba(0, 240, 255, 0.4);
+  border-radius: 20px;
+  color: #00f0ff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+  z-index: 3;
 }
 
-.about-tag {
-  font-size: 0.8rem;
-  letter-spacing: 4px;
-  color: var(--accent-glow);
-  margin-bottom: 8px;
-  font-weight: 600;
-  text-transform: uppercase;
+.hologram-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #00f0ff;
+  box-shadow: 0 0 8px #00f0ff;
+  animation: pulseDot 1.5s infinite;
 }
 
-.about-title-large {
-  font-size: 2.5rem;
-  font-weight: 800;
-  margin-bottom: 20px;
-  letter-spacing: -0.5px;
+/* Hologram Detail Boxes */
+.hologram-box {
+  background: rgba(13, 20, 42, 0.55);
+  border: 1px solid rgba(0, 240, 255, 0.18);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.about-paragraphs p {
-  font-size: 1.05rem;
-  line-height: 1.75;
-  color: var(--text-muted);
-  margin-bottom: 18px;
-  font-weight: 300;
-}
-
-.about-paragraphs p strong {
-  color: var(--text-main);
-  font-weight: 600;
-}
-
-.about-details-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 24px;
-  margin-bottom: 24px;
-}
-
-.about-box {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  padding: 30px;
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  transition: all 0.3s ease;
-}
-
-.about-box:hover {
-  border-color: var(--border-hover);
-  background: var(--bg-card-hover);
+.hologram-box:hover {
+  transform: translateY(-6px);
+  border-color: rgba(0, 240, 255, 0.5);
+  box-shadow: 0 15px 35px rgba(0, 240, 255, 0.25);
+  background: rgba(15, 23, 48, 0.75);
 }
 
 .about-box h3 {
