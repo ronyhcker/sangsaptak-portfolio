@@ -22,7 +22,7 @@ const sharedHeartCurve = new HeartCurve();
 
 function ResponsiveGroup({ children }) {
   const { viewport } = useThree();
-  const scale = Math.min(1.1, viewport.width / 3.5);
+  const scale = Math.min(1.35, viewport.width / 2.7);
   return <group scale={scale}>{children}</group>;
 }
 
@@ -303,9 +303,7 @@ export function RobotPrototype({ neckParams = { baseR: 0.25, baseH: -0.01, midR:
     const relativeX = tx - (bodyRef.current.position.x / 2.5);
 
     const bodyTargetRotY = -relativeX * config.bodyTiltY; 
-
     const bodyTargetRotX = (relativeX * relativeX * config.bodyTiltX) - (ty * 0.25); 
-    
     const bodyTargetRotZ = -relativeX * 0.15; 
     
     bodyRef.current.rotation.y = THREE.MathUtils.lerp(bodyRef.current.rotation.y, bodyTargetRotY, config.bodyRotSpeed * dt);
@@ -335,7 +333,6 @@ export function RobotPrototype({ neckParams = { baseR: 0.25, baseH: -0.01, midR:
 
     return () => {
       mounted = false;
-      
       if (generatedMaps) {
         generatedMaps.colorMap.dispose();
         generatedMaps.bumpMap.dispose();
@@ -377,7 +374,7 @@ export function RobotPrototype({ neckParams = { baseR: 0.25, baseH: -0.01, midR:
   return (
     <group 
       ref={bodyRef}
-      position={[0, -0.3, 0]}
+      position={[0, -0.25, 0]}
       onPointerDown={handlePointerDown}
       onPointerOver={() => document.body.style.cursor = 'pointer'}
       onPointerOut={() => document.body.style.cursor = 'auto'}
@@ -394,6 +391,16 @@ export function RobotPrototype({ neckParams = { baseR: 0.25, baseH: -0.01, midR:
           envMapIntensity={0.0} 
         />
       </mesh>
+
+      {/* Dynamic shadow attached directly under the robot sphere that moves in perfect sync */}
+      <ContactShadows 
+        position={[0, -0.44, 0]} 
+        opacity={0.85} 
+        scale={2.2} 
+        blur={1.4} 
+        far={1.2} 
+        color="#000000" 
+      />
 
       {bodyParams.bodyBevelT > 0 && (
         <mesh position={[0, bodyParams.bodyBevelY, 0]} rotation={[Math.PI / 2, 0, 0]} castShadow receiveShadow>
@@ -447,20 +454,18 @@ export function RobotPrototype({ neckParams = { baseR: 0.25, baseH: -0.01, midR:
 // Standalone 3D Canvas component for embedding into custom sections
 export function RobotCanvas({ className = "w-full h-full min-h-[350px]" }) {
   const entorno = {
-    luzAmbiente: 0.75,
-    luzPrincipal: 0.0,
-    luzPrincipalColor: '#00ffe2',
-    luzRelleno: 0.0,
-    luzRellenoColor: '#dbdbdb',
-    sombraOpacidad: 0.85,
-    sombraBlur: 1.7
+    luzAmbiente: 0.85,
+    luzPrincipal: 0.2,
+    luzPrincipalColor: '#ffffff',
+    luzRelleno: 0.4,
+    luzRellenoColor: '#dbdbdb'
   };
 
   return (
     <div className={className}>
       <Canvas 
         shadows 
-        camera={{ position: [0, 0.2, 5.5], fov: 40 }}
+        camera={{ position: [0, 0.1, 4.8], fov: 38 }}
       >
         <ambientLight intensity={entorno.luzAmbiente} color="#ffffff" />
         
@@ -469,18 +474,14 @@ export function RobotCanvas({ className = "w-full h-full min-h-[350px]" }) {
           intensity={entorno.luzPrincipal} 
           color={entorno.luzPrincipalColor} 
           castShadow 
-          shadow-mapSize={[2048, 2048]}
-          shadow-bias={-0.0005} 
-        >
-          <orthographicCamera attach="shadow-camera" args={[-1.5, 1.5, 1.5, -1.5, 0.1, 20]} />
-        </directionalLight>
+          shadow-mapSize={[1024, 1024]}
+        />
         
         <directionalLight position={[-5, 2, -5]} intensity={entorno.luzRelleno} color={entorno.luzRellenoColor} />
 
         <Environment preset="studio" blur={0.5} />
 
         <ResponsiveGroup>
-          <ContactShadows position={[0, -0.79, 0]} opacity={entorno.sombraOpacidad} scale={15} resolution={1024} blur={entorno.sombraBlur} far={2.5} color="#000000" />
           <RobotPrototype 
             neckParams={{ baseR: 0.215, baseH: -0.050, midR: 0.280, midH: 0.020, lipBottomR: 0.295, lipBottomH: 0.045, lipTopR: 0.270, lipTopH: 0.055, innerR: 0.100, innerDropH: 0.000 }} 
             bodyParams={{ bodyBevelR: 0.235, bodyBevelY: 0.340, bodyBevelT: 0.025 }} 
@@ -650,7 +651,6 @@ export function RobotHero({
           <Environment preset="studio" blur={0.5} />
 
           <ResponsiveGroup>
-            <ContactShadows position={[0, -0.79, 0]} opacity={entorno.sombraOpacidad} scale={15} resolution={1024} blur={entorno.sombraBlur} far={2.5} color="#000000" />
             <RobotPrototype 
               neckParams={{ baseR: 0.215, baseH: -0.050, midR: 0.280, midH: 0.020, lipBottomR: 0.295, lipBottomH: 0.045, lipTopR: 0.270, lipTopH: 0.055, innerR: 0.100, innerDropH: 0.000 }} 
               bodyParams={{ bodyBevelR: 0.235, bodyBevelY: 0.340, bodyBevelT: 0.025 }} 

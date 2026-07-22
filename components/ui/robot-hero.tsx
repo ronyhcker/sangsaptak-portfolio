@@ -24,7 +24,7 @@ const sharedHeartCurve = new HeartCurve();
 
 function ResponsiveGroup({ children }: { children: React.ReactNode }) {
   const { viewport } = useThree();
-  const scale = Math.min(1.1, viewport.width / 3.5);
+  const scale = Math.min(1.35, viewport.width / 2.7);
   return <group scale={scale}>{children}</group>;
 }
 
@@ -143,7 +143,6 @@ function RobotEye({ position, rotation, scale = 1, blinkDuration = 0.15, blinkCy
     let targetScaleY = 1;
 
     if (cycle < blinkDuration && !isHeart) {
-      
       const progress = cycle / blinkDuration;
       const blinkClose = Math.sin(progress * Math.PI); 
       
@@ -212,9 +211,7 @@ function RobotEye({ position, rotation, scale = 1, blinkDuration = 0.15, blinkCy
 
 function generatePbrTexturesAsync(): Promise<{ colorMap: THREE.CanvasTexture, bumpMap: THREE.CanvasTexture }> {
   return new Promise((resolve) => {
-    
     setTimeout(() => {
-      
       const size = 512;
       const canvasC = document.createElement('canvas');
       const canvasB = document.createElement('canvas');
@@ -308,9 +305,7 @@ export function RobotPrototype({ neckParams = { baseR: 0.25, baseH: -0.01, midR:
     const relativeX = tx - (bodyRef.current.position.x / 2.5);
 
     const bodyTargetRotY = -relativeX * config.bodyTiltY; 
-
     const bodyTargetRotX = (relativeX * relativeX * config.bodyTiltX) - (ty * 0.25); 
-    
     const bodyTargetRotZ = -relativeX * 0.15; 
     
     bodyRef.current.rotation.y = THREE.MathUtils.lerp(bodyRef.current.rotation.y, bodyTargetRotY, config.bodyRotSpeed * dt);
@@ -340,7 +335,6 @@ export function RobotPrototype({ neckParams = { baseR: 0.25, baseH: -0.01, midR:
 
     return () => {
       mounted = false;
-      
       if (generatedMaps) {
         generatedMaps.colorMap.dispose();
         generatedMaps.bumpMap.dispose();
@@ -359,19 +353,12 @@ export function RobotPrototype({ neckParams = { baseR: 0.25, baseH: -0.01, midR:
 
   const neckProfile = useMemo(() => {
     const points = [];
-    
     points.push(new THREE.Vector2(neckParams.innerR, neckParams.baseH));
-    
     points.push(new THREE.Vector2(neckParams.baseR, neckParams.baseH));
-    
     points.push(new THREE.Vector2(neckParams.midR, neckParams.midH));
-    
     points.push(new THREE.Vector2(neckParams.lipBottomR, neckParams.lipBottomH));
-    
     points.push(new THREE.Vector2(neckParams.lipTopR, neckParams.lipTopH));
-    
     points.push(new THREE.Vector2(neckParams.innerR, neckParams.lipTopH));
-    
     points.push(new THREE.Vector2(neckParams.innerR, neckParams.lipTopH - neckParams.innerDropH));
     return points;
   }, [neckParams]);
@@ -389,7 +376,7 @@ export function RobotPrototype({ neckParams = { baseR: 0.25, baseH: -0.01, midR:
   return (
     <group 
       ref={bodyRef}
-      position={[0, -0.3, 0]}
+      position={[0, -0.25, 0]}
       onPointerDown={handlePointerDown}
       onPointerOver={() => document.body.style.cursor = 'pointer'}
       onPointerOut={() => document.body.style.cursor = 'auto'}
@@ -406,6 +393,16 @@ export function RobotPrototype({ neckParams = { baseR: 0.25, baseH: -0.01, midR:
           envMapIntensity={0.0} 
         />
       </mesh>
+
+      {/* Dynamic shadow attached directly under the robot sphere that moves in perfect sync */}
+      <ContactShadows 
+        position={[0, -0.44, 0]} 
+        opacity={0.85} 
+        scale={2.2} 
+        blur={1.4} 
+        far={1.2} 
+        color="#000000" 
+      />
 
       {bodyParams.bodyBevelT > 0 && (
         <mesh position={[0, bodyParams.bodyBevelY, 0]} rotation={[Math.PI / 2, 0, 0]} castShadow receiveShadow>
@@ -495,9 +492,7 @@ function AntennaNavbar({
   return (
     <nav className="sticky top-0 z-50 w-full pt-8 px-8 pointer-events-none">
       <div className="w-full max-w-[1400px] mx-auto flex flex-col relative pointer-events-auto">
-        
         <div className="flex flex-col lg:flex-row items-center justify-between relative gap-4 lg:gap-0">
-          
           <div className="flex flex-wrap justify-center lg:justify-start items-center gap-2 sm:gap-3 z-20">
             {leftItems.map((item, idx) => (
               <a
@@ -552,14 +547,12 @@ function AntennaNavbar({
               <PiShoppingBagBold size={18} />
             </button>
           </div>
-          
         </div>
 
         <motion.div 
           style={{ opacity: lineOpacity }} 
           className="w-full mt-6 border-b-2 border-dotted border-white/30" 
         />
-
       </div>
     </nav>
   );
@@ -642,7 +635,6 @@ export function RobotHero({
           <Environment preset="studio" blur={0.5} />
 
           <ResponsiveGroup>
-            <ContactShadows position={[0, -0.79, 0]} opacity={entorno.sombraOpacidad} scale={15} resolution={1024} blur={entorno.sombraBlur} far={2.5} color="#000000" />
             <RobotPrototype 
               neckParams={{ baseR: 0.215, baseH: -0.050, midR: 0.280, midH: 0.020, lipBottomR: 0.295, lipBottomH: 0.045, lipTopR: 0.270, lipTopH: 0.055, innerR: 0.100, innerDropH: 0.000 }} 
               bodyParams={{ bodyBevelR: 0.235, bodyBevelY: 0.340, bodyBevelT: 0.025 }} 
@@ -662,13 +654,10 @@ export function RobotHero({
         />
         
         <div className="relative w-full max-w-[1400px] mx-auto px-8 flex-1 flex flex-col">
-          
           <div className="mt-auto flex justify-between items-end pb-12 w-full">
-            
           </div>
         </div>
       </div>
-
     </section>
   );
 }
