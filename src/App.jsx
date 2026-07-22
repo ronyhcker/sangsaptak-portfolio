@@ -517,11 +517,39 @@ function App() {
             </motion.div>
           </div>
 
-          {/* Right Column: Floating 3D Robot */}
+          {/* Right Column: Floating 3D Robot with AI Energy Platform Underneath */}
           <div className="hero-right-robot">
-            <div className="hero-robot-hologram-glow" />
-            <div className="hero-holographic-ring" />
+            {/* Soft cyan & purple glow BEHIND the robot (NOT enclosing) */}
+            <div className="hero-robot-soft-backglow" />
+
+            {/* Main 3D Robot */}
             <RobotCanvas className="hero-robot-canvas" />
+
+            {/* Futuristic AI Energy Platform UNDERNEATH the robot */}
+            <div className="ai-energy-platform">
+              <div className="platform-hex-base" />
+              <div className="platform-energy-core" />
+              <div className="platform-light-strip-1" />
+              <div className="platform-light-strip-2" />
+              
+              {/* Thin vertical holographic projection lines rising upward */}
+              <div className="holo-projection-lines">
+                <span className="holo-line holo-line-1" />
+                <span className="holo-line holo-line-2" />
+                <span className="holo-line holo-line-3" />
+                <span className="holo-line holo-line-4" />
+                <span className="holo-line holo-line-5" />
+              </div>
+              
+              {/* Floating energy particles around the base */}
+              <div className="platform-particles">
+                <span className="p-particle p1" />
+                <span className="p-particle p2" />
+                <span className="p-particle p3" />
+                <span className="p-particle p4" />
+                <span className="p-particle p5" />
+              </div>
+            </div>
           </div>
         </div>
       </section>

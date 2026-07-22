@@ -380,29 +380,144 @@ header.scrolled {
   margin-left: auto;
 }
 
-.hero-robot-hologram-glow {
+/* Soft Cyan & Purple Glow BEHIND Robot (Unenclosed, strictly backglow) */
+.hero-robot-soft-backglow {
   position: absolute;
-  width: 300px;
-  height: 300px;
+  top: 15%;
+  left: 15%;
+  width: 70%;
+  height: 70%;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(56, 189, 248, 0.25) 0%, rgba(147, 51, 234, 0.15) 50%, transparent 75%);
-  filter: blur(35px);
+  background: radial-gradient(circle, rgba(0, 240, 255, 0.22) 0%, rgba(168, 85, 247, 0.15) 55%, transparent 75%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Futuristic AI Energy Platform UNDERNEATH the robot */
+.ai-energy-platform {
+  position: absolute;
+  bottom: 0px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 280px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.platform-hex-base {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(0, 240, 255, 0.2), rgba(168, 85, 247, 0.3), rgba(0, 102, 255, 0.2));
+  clip-path: polygon(10% 0%, 90% 0%, 100% 50%, 90% 100%, 10% 100%, 0% 50%);
+  border-radius: 4px;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.4);
+  transform: perspective(400px) rotateX(60deg);
+}
+
+.platform-energy-core {
+  position: absolute;
+  top: 3px;
+  left: 15%;
+  width: 70%;
+  height: 6px;
+  background: linear-gradient(90deg, #00f0ff 0%, #a855f7 50%, #0066ff 100%);
+  background-size: 200% auto;
+  border-radius: 3px;
+  box-shadow: 0 0 14px #00f0ff, 0 0 22px #a855f7;
+  animation: energyPulse 3s ease-in-out infinite;
+}
+
+@keyframes energyPulse {
+  0% { background-position: 0% center; opacity: 0.8; }
+  50% { background-position: 100% center; opacity: 1; }
+  100% { background-position: 0% center; opacity: 0.8; }
+}
+
+.platform-light-strip-1 {
+  position: absolute;
+  top: 0;
+  left: 20%;
+  width: 60%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 0 10px #ffffff;
+}
+
+.platform-light-strip-2 {
+  position: absolute;
+  bottom: 0;
+  left: 25%;
+  width: 50%;
+  height: 1px;
+  background: rgba(0, 240, 255, 0.8);
+  box-shadow: 0 0 10px #00f0ff;
+}
+
+/* Vertical Holographic Projection Lines rising upward from base */
+.holo-projection-lines {
+  position: absolute;
+  bottom: 12px;
+  width: 220px;
+  height: 70px;
+  display: flex;
+  justify-content: space-between;
   pointer-events: none;
 }
 
-.hero-holographic-ring {
+.holo-line {
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(to top, rgba(0, 240, 255, 0.7), rgba(168, 85, 247, 0.4), transparent);
+  animation: riseHoloLine 2.5s infinite ease-in-out;
+}
+
+.holo-line-1 { animation-delay: 0s; }
+.holo-line-2 { animation-delay: 0.4s; }
+.holo-line-3 { animation-delay: 0.8s; }
+.holo-line-4 { animation-delay: 1.2s; }
+.holo-line-5 { animation-delay: 1.6s; }
+
+@keyframes riseHoloLine {
+  0% { transform: translateY(0); opacity: 0.2; }
+  50% { opacity: 0.95; }
+  100% { transform: translateY(-35px); opacity: 0; }
+}
+
+/* Floating Particles around base */
+.platform-particles {
   position: absolute;
-  width: 340px;
-  height: 340px;
-  border-radius: 50%;
-  border: 1.5px dashed rgba(56, 189, 248, 0.35);
-  animation: spinRing 25s linear infinite;
+  bottom: 5px;
+  width: 240px;
+  height: 40px;
   pointer-events: none;
 }
 
-@keyframes spinRing {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+.p-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: #00f0ff;
+  box-shadow: 0 0 6px #00f0ff;
+  animation: riseParticle 3s infinite ease-in-out;
+}
+
+.p1 { left: 15%; animation-delay: 0.2s; }
+.p2 { left: 35%; animation-delay: 0.9s; background: #a855f7; box-shadow: 0 0 6px #a855f7; }
+.p3 { left: 55%; animation-delay: 1.5s; }
+.p4 { left: 75%; animation-delay: 2.1s; background: #a855f7; box-shadow: 0 0 6px #a855f7; }
+.p5 { left: 90%; animation-delay: 0.6s; }
+
+@keyframes riseParticle {
+  0% { transform: translateY(0) scale(0.6); opacity: 0.2; }
+  50% { opacity: 1; }
+  100% { transform: translateY(-25px) scale(1.2); opacity: 0; }
 }
 
 .hero-robot-canvas {
