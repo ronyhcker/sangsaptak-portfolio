@@ -294,26 +294,36 @@ export function RobotPrototype({ neckParams = { baseR: 0.25, baseH: -0.01, midR:
     if (!bodyRef.current || !headRef.current) return;
 
     const dt = Math.min(delta, 0.1);
+    const time = state.clock.getElapsedTime();
 
     const tx = state.pointer.x;
     const ty = state.pointer.y;
 
-    const maxMoveX = state.viewport.width / 3.5;
-    const targetPosX = tx * maxMoveX;
-    bodyRef.current.position.x = THREE.MathUtils.lerp(bodyRef.current.position.x, targetPosX, config.moveSpeed * dt);
+    // Smooth idle floating and breathing motion
+    const floatY = Math.sin(time * 1.8) * 0.08;
+    const floatX = Math.cos(time * 1.2) * 0.03;
+    const breathScale = 1 + Math.sin(time * 2.5) * 0.012;
 
-    const relativeX = tx - (bodyRef.current.position.x / 2.5);
+    // Smooth subtle mouse parallax within container
+    const targetPosX = tx * 0.3 + floatX;
+    const targetPosY = floatY;
 
-    const bodyTargetRotY = -relativeX * config.bodyTiltY; 
-    const bodyTargetRotX = (relativeX * relativeX * config.bodyTiltX) - (ty * 0.25); 
-    const bodyTargetRotZ = -relativeX * 0.15; 
+    bodyRef.current.position.x = THREE.MathUtils.lerp(bodyRef.current.position.x, targetPosX, config.moveSpeed * dt * 5);
+    bodyRef.current.position.y = THREE.MathUtils.lerp(bodyRef.current.position.y, targetPosY, config.moveSpeed * dt * 5);
+    bodyRef.current.scale.set(breathScale, breathScale, breathScale);
+
+    const relativeX = tx;
+
+    const bodyTargetRotY = -relativeX * 0.45; 
+    const bodyTargetRotX = (relativeX * relativeX * 0.1) - (ty * 0.15); 
+    const bodyTargetRotZ = -relativeX * 0.08; 
     
     bodyRef.current.rotation.y = THREE.MathUtils.lerp(bodyRef.current.rotation.y, bodyTargetRotY, config.bodyRotSpeed * dt);
     bodyRef.current.rotation.x = THREE.MathUtils.lerp(bodyRef.current.rotation.x, bodyTargetRotX, config.bodyRotSpeed * dt);
     bodyRef.current.rotation.z = THREE.MathUtils.lerp(bodyRef.current.rotation.z, bodyTargetRotZ, config.bodyRotSpeed * dt);
 
-    const headTargetRotY = relativeX * config.headLookY; 
-    const headTargetRotX = -ty * config.headLookX; 
+    const headTargetRotY = relativeX * 0.95; 
+    const headTargetRotX = -ty * 0.45 + Math.sin(time * 1.4) * 0.02; 
     
     headRef.current.rotation.y = THREE.MathUtils.lerp(headRef.current.rotation.y, headTargetRotY, config.headRotSpeed * dt);
     headRef.current.rotation.x = THREE.MathUtils.lerp(headRef.current.rotation.x, headTargetRotX, config.headRotSpeed * dt);

@@ -435,39 +435,92 @@ function App() {
         </nav>
       </header>
 
-      {/* Hero Section */}
+      {/* Hero Section - Upgraded Two-Column Layout */}
       <section className="hero" id="home">
         {/* Animated WebGL Shader Background */}
         <AnimatedShaderBackground className="hero-shader-bg" />
         <div className="hero-shader-overlay" />
+        
+        {/* Cinematic Light Streaks & Star Dust */}
+        <div className="hero-light-streak-1" />
+        <div className="hero-light-streak-2" />
+        <div className="hero-star-particles" />
 
-        <div className="hero-container hero-centered">
-          <div className="hero-content-center">
-            <div className="hero-tag">
+        <div className="hero-container hero-two-column">
+          {/* Left Column: Text & Buttons */}
+          <div className="hero-left-content">
+            <div className="hero-text-radial-glow" />
+            
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="hero-tag"
+            >
               <DynamicIcon name="Sparkles" size={16} />
               <span>{PORTFOLIO_DATA.tag}</span>
-            </div>
-            <h1>
-              Hi, I'm <span className="accent-text">{PORTFOLIO_DATA.name}</span>
-            </h1>
-            <h2>{PORTFOLIO_DATA.role}</h2>
-            <p>{PORTFOLIO_DATA.bio}</p>
-            <div className="hero-buttons">
-              <a 
+            </motion.div>
+
+            <motion.h1 
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.15 }}
+              className="hero-heading"
+            >
+              <span className="hero-greeting">Hi, I'm</span>
+              <span className="hero-name-gradient">{PORTFOLIO_DATA.name}</span>
+            </motion.h1>
+
+            <motion.h2 
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.3 }}
+              className="hero-subtitle"
+            >
+              {PORTFOLIO_DATA.role}
+            </motion.h2>
+
+            <motion.p 
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.45 }}
+              className="hero-description"
+            >
+              I build clean, functional, and intelligent software solutions. Passionate about Artificial Intelligence, Machine Learning, and full-stack development.
+            </motion.p>
+
+            <motion.div 
+              initial={{ opacity: 0, y: 25 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.6 }}
+              className="hero-buttons"
+            >
+              <motion.a 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
                 href={PORTFOLIO_DATA.resumeUrl} 
-                className="btn btn-primary"
+                className="btn btn-primary hero-btn-cv"
                 download
               >
                 <DynamicIcon name="Download" size={18} />
                 Download CV
-              </a>
-              <a href="#contact" className="btn btn-outline">
+              </motion.a>
+              <motion.a 
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.98 }}
+                href="#contact" 
+                className="btn btn-outline hero-btn-contact"
+              >
+                <span className="contact-btn-glow-border" />
                 Contact Me
-              </a>
-            </div>
+              </motion.a>
+            </motion.div>
           </div>
 
-          <div className="hero-robot-center">
+          {/* Right Column: Floating 3D Robot */}
+          <div className="hero-right-robot">
+            <div className="hero-robot-hologram-glow" />
+            <div className="hero-holographic-ring" />
             <RobotCanvas className="hero-robot-canvas" />
           </div>
         </div>
