@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import * as Icons from 'lucide-react'
 import profileImg from './assets/profile.jpg'
+import sdLogoImg from './assets/sd-logo.png'
 import { RobotCanvas } from './components/ui/robot-hero'
 import AnimatedShaderBackground from './components/ui/animated-shader-background'
 import './App.css'
@@ -200,6 +201,24 @@ const TechLogo = ({ tech }) => {
   return <img src={tech.logoUrl} alt={tech.name} className="tech-logo-img" style={tech.style} />;
 }
 
+// Helper to map programming language to custom badge color
+const getLanguageColor = (lang) => {
+  const colors = {
+    JavaScript: '#f1e05a',
+    Python: '#3572A5',
+    HTML: '#e34c26',
+    CSS: '#563d7c',
+    Java: '#b07219',
+    TypeScript: '#3178c6',
+    C: '#555555',
+    'C++': '#f34b7d',
+    Shell: '#89e051',
+    Vue: '#41b883',
+    Jupyter: '#DA5B0B'
+  };
+  return colors[lang] || '#a855f7';
+};
+
 function App() {
   const [activeSection, setActiveSection] = useState('home');
   const [isScrolled, setIsScrolled] = useState(false);
@@ -207,12 +226,54 @@ function App() {
   const [introActive, setIntroActive] = useState(true);
   const [fadeOut, setFadeOut] = useState(false);
   
+  // Live GitHub Repositories State
+  const [gitHubRepos, setGitHubRepos] = useState([]);
+  const [gitHubUser, setGitHubUser] = useState(null);
+  const [reposLoading, setReposLoading] = useState(true);
+
   // Aivox Chatbot state
   const [chatOpen, setChatOpen] = useState(false);
   const [chatMessages, setChatMessages] = useState([
     { text: "Hi, I'm Aivox, Sangsaptak's AI assistant. Ask me anything about his skills, education, projects, or creative background!", sender: "ai" }
   ]);
   const chatEndRef = useRef(null);
+
+  // Live fetch repositories from GitHub REST API
+  useEffect(() => {
+    let mounted = true;
+    const fetchGitHubData = async () => {
+      try {
+        setReposLoading(true);
+        const [reposRes, userRes] = await Promise.all([
+          fetch('https://api.github.com/users/sangsaptak0704/repos?sort=updated&per_page=12'),
+          fetch('https://api.github.com/users/sangsaptak0704')
+        ]);
+
+        if (reposRes.ok && userRes.ok) {
+          const reposData = await reposRes.json();
+          const userData = await userRes.json();
+          
+          if (mounted) {
+            // Sort by latest pushed_at date
+            const sorted = reposData.sort((a, b) => new Date(b.pushed_at) - new Date(a.pushed_at));
+            setGitHubRepos(sorted);
+            setGitHubUser(userData);
+            setReposLoading(false);
+          }
+        } else {
+          throw new Error('GitHub API response non-ok');
+        }
+      } catch (err) {
+        console.warn('GitHub live fetch fallback to local projects:', err);
+        if (mounted) {
+          setReposLoading(false);
+        }
+      }
+    };
+
+    fetchGitHubData();
+    return () => { mounted = false; };
+  }, []);
 
   // Auto scroll to bottom of chat
   useEffect(() => {
@@ -324,7 +385,7 @@ function App() {
         <nav className="navbar">
           {/* Left Brand Area */}
           <div className="navbar-logo-container">
-            <div className="navbar-logo-badge">SD</div>
+            <img src={sdLogoImg} alt="SD Logo" className="navbar-logo-img" />
             <span className="navbar-brand-name">{PORTFOLIO_DATA.logoName}</span>
             <span className="navbar-status-dot" title="Available for opportunities"></span>
           </div>
@@ -601,40 +662,157 @@ function App() {
         </div>
       </section>
 
-      {/* Work (Projects) Section */}
+      {/* Work (Projects) Section - Upgraded with Live GitHub API Integration */}
       <section id="work">
         <div className="container">
-          <h2 className="section-title">My Work</h2>
-          <p className="section-subtitle">A collection of academic and personal developer projects</p>
+          <div className="work-header-badge">
+            <span className="live-status-dot"></span>
+            <span>LIVE GITHUB SYNC</span>
+          </div>
+          <h2 className="section-title">Featured <span className="accent-text">Projects & Repos</span></h2>
+          <p className="section-subtitle">Real-time open-source repositories and software tools fetched live from my GitHub profile</p>
 
-          <div className="projects-grid">
-            {PORTFOLIO_DATA.projects.map((project, idx) => (
-              <div key={idx} className="project-card">
-                <h3>{project.title}</h3>
-                <p>{project.description}</p>
-                <div className="tech-tags">
-                  {project.tags.map((tag, tagIdx) => (
-                    <span key={tagIdx}>{tag}</span>
-                  ))}
-                </div>
-                <div className="project-buttons">
-                  <a 
-                    href={project.github} 
-                    className="btn btn-outline btn-small"
-                  >
-                    <DynamicIcon name="Github" size={16} />
-                    GitHub
-                  </a>
-                  <a 
-                    href={project.demo} 
-                    className="btn btn-primary btn-small"
-                  >
-                    <DynamicIcon name="ExternalLink" size={16} />
-                    Live Demo
-                  </a>
-                </div>
+          {gitHubUser && (
+            <div className="github-stats-bar">
+              <div className="github-stat-item">
+                <DynamicIcon name="FolderGit2" size={18} />
+                <span><strong>{gitHubUser.public_repos}</strong> Public Repositories</span>
               </div>
-            ))}
+              <div className="github-stat-item">
+                <DynamicIcon name="Users" size={18} />
+                <span><strong>{gitHubUser.followers}</strong> Followers</span>
+              </div>
+              <div className="github-stat-item">
+                <DynamicIcon name="Github" size={18} />
+                <a href={gitHubUser.html_url} target="_blank" rel="noopener noreferrer">@{gitHubUser.login}</a>
+              </div>
+            </div>
+          )}
+
+          {reposLoading ? (
+            <div className="projects-grid">
+              {[1, 2, 3].map((_, i) => (
+                <div key={i} className="project-card skeleton-card">
+                  <div className="skeleton-line skeleton-title"></div>
+                  <div className="skeleton-line skeleton-text"></div>
+                  <div className="skeleton-line skeleton-text short"></div>
+                  <div className="skeleton-line skeleton-pill"></div>
+                </div>
+              ))}
+            </div>
+          ) : gitHubRepos.length > 0 ? (
+            <div className="projects-grid">
+              {gitHubRepos.map((repo) => (
+                <div key={repo.id} className="project-card repo-card">
+                  <div className="repo-card-header">
+                    <DynamicIcon name="Folder" size={20} className="repo-icon" />
+                    <h3>{repo.name}</h3>
+                  </div>
+                  <p className="repo-description">
+                    {repo.description || "Open-source developer repository created by Sangsaptak Das."}
+                  </p>
+                  
+                  <div className="repo-meta-row">
+                    {repo.language && (
+                      <span className="repo-lang-pill">
+                        <span 
+                          className="lang-dot" 
+                          style={{ backgroundColor: getLanguageColor(repo.language) }}
+                        ></span>
+                        {repo.language}
+                      </span>
+                    )}
+                    {repo.stargazers_count > 0 && (
+                      <span className="repo-stat-badge" title="Stars">
+                        <DynamicIcon name="Star" size={14} />
+                        {repo.stargazers_count}
+                      </span>
+                    )}
+                    {repo.forks_count > 0 && (
+                      <span className="repo-stat-badge" title="Forks">
+                        <DynamicIcon name="GitFork" size={14} />
+                        {repo.forks_count}
+                      </span>
+                    )}
+                  </div>
+
+                  <div className="project-buttons">
+                    <a 
+                      href={repo.html_url} 
+                      target="_blank" 
+                      rel="noopener noreferrer" 
+                      className="btn btn-outline btn-small"
+                    >
+                      <DynamicIcon name="Github" size={16} />
+                      View Code
+                    </a>
+                    {repo.homepage ? (
+                      <a 
+                        href={repo.homepage.startsWith('http') ? repo.homepage : `https://${repo.homepage}`} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="btn btn-primary btn-small"
+                      >
+                        <DynamicIcon name="ExternalLink" size={16} />
+                        Live Demo
+                      </a>
+                    ) : (
+                      <a 
+                        href={repo.html_url} 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        className="btn btn-primary btn-small"
+                      >
+                        <DynamicIcon name="FolderGit2" size={16} />
+                        Repo Details
+                      </a>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="projects-grid">
+              {PORTFOLIO_DATA.projects.map((project, idx) => (
+                <div key={idx} className="project-card">
+                  <h3>{project.title}</h3>
+                  <p>{project.description}</p>
+                  <div className="tech-tags">
+                    {project.tags.map((tag, tagIdx) => (
+                      <span key={tagIdx}>{tag}</span>
+                    ))}
+                  </div>
+                  <div className="project-buttons">
+                    <a 
+                      href={project.github} 
+                      className="btn btn-outline btn-small"
+                    >
+                      <DynamicIcon name="Github" size={16} />
+                      GitHub
+                    </a>
+                    <a 
+                      href={project.demo} 
+                      className="btn btn-primary btn-small"
+                    >
+                      <DynamicIcon name="ExternalLink" size={16} />
+                      Live Demo
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          <div className="view-all-github-container">
+            <a 
+              href="https://github.com/sangsaptak0704" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="btn btn-outline view-all-btn"
+            >
+              <DynamicIcon name="Github" size={18} />
+              View All Repositories on GitHub
+            </a>
           </div>
         </div>
       </section>
