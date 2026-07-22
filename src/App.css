@@ -411,23 +411,22 @@ header.luxury-header.scrolled nav.luxury-navbar {
 }
 
 .hero-tagline {
-  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Satoshi', 'Inter', system-ui, sans-serif;
-  font-size: 1.38rem; /* 22px desktop */
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Satoshi', 'General Sans', 'Clash Display', system-ui, sans-serif;
+  font-size: 1.3rem; /* 21px desktop */
   font-weight: 500;
   line-height: 1.5;
-  letter-spacing: 0.04em;
-  background: linear-gradient(180deg, #ffffff 0%, rgba(226, 232, 240, 0.78) 100%);
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-top: 10px;
-  margin-bottom: 32px;
-  max-width: 580px;
+  letter-spacing: 0.02em;
+  color: rgba(229, 231, 235, 0.9);
+  max-width: fit-content;
+  text-align: left;
+  margin-top: 16px;
+  margin-bottom: 34px;
 }
 
 @media (max-width: 768px) {
   .hero-tagline {
-    font-size: 1.15rem;
+    font-size: 1.1rem;
+    margin-top: 12px;
     margin-bottom: 24px;
   }
 }
