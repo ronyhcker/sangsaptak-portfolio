@@ -194,14 +194,77 @@ header.scrolled {
   display: flex;
   align-items: center;
   justify-content: center;
-  text-align: center;
   padding: 140px 24px 80px;
   position: relative;
+  overflow: hidden;
 }
 
-.hero-content {
-  max-width: 800px;
+.hero-container {
+  max-width: 1250px;
+  width: 100%;
   margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  align-items: center;
+  gap: 30px;
+}
+
+.hero-left {
+  text-align: left;
+  z-index: 2;
+}
+
+.hero-left p {
+  margin: 0 0 40px 0;
+  max-width: 540px;
+}
+
+.hero-left .hero-buttons {
+  justify-content: flex-start;
+}
+
+.hero-right {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+
+.hero-robot-canvas {
+  width: 100%;
+  height: 100%;
+  min-height: 480px;
+}
+
+@media (max-width: 992px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .hero-left {
+    text-align: center;
+    order: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero-left p {
+    margin: 0 auto 30px auto;
+  }
+
+  .hero-left .hero-buttons {
+    justify-content: center;
+  }
+
+  .hero-right {
+    height: 420px;
+    order: 2;
+  }
 }
 
 .hero-tag {
@@ -241,8 +304,6 @@ header.scrolled {
 }
 
 .hero p {
-  max-width: 600px;
-  margin: 0 auto 40px;
   color: var(--text-muted);
   font-size: 1.05rem;
   font-weight: 300;
@@ -252,7 +313,6 @@ header.scrolled {
 .hero-buttons {
   display: flex;
   gap: 20px;
-  justify-content: center;
   flex-wrap: wrap;
 }
 

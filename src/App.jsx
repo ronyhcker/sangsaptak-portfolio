@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import * as Icons from 'lucide-react'
 import profileImg from './assets/profile.jpg'
+import { RobotCanvas } from './components/ui/robot-hero'
 import './App.css'
 
 // Centralized portfolio data config for easy customization
@@ -357,28 +358,34 @@ function App() {
 
       {/* Hero Section */}
       <section className="hero" id="home">
-        <div className="hero-content">
-          <div className="hero-tag">
-            <DynamicIcon name="Sparkles" size={16} />
-            <span>{PORTFOLIO_DATA.tag}</span>
+        <div className="hero-container">
+          <div className="hero-left">
+            <div className="hero-tag">
+              <DynamicIcon name="Sparkles" size={16} />
+              <span>{PORTFOLIO_DATA.tag}</span>
+            </div>
+            <h1>
+              Hi, I'm <span className="accent-text">{PORTFOLIO_DATA.name}</span>
+            </h1>
+            <h2>{PORTFOLIO_DATA.role}</h2>
+            <p>{PORTFOLIO_DATA.bio}</p>
+            <div className="hero-buttons">
+              <a 
+                href={PORTFOLIO_DATA.resumeUrl} 
+                className="btn btn-primary"
+                download
+              >
+                <DynamicIcon name="Download" size={18} />
+                Download CV
+              </a>
+              <a href="#contact" className="btn btn-outline">
+                Contact Me
+              </a>
+            </div>
           </div>
-          <h1>
-            Hi, I'm <span className="accent-text">{PORTFOLIO_DATA.name}</span>
-          </h1>
-          <h2>{PORTFOLIO_DATA.role}</h2>
-          <p>{PORTFOLIO_DATA.bio}</p>
-          <div className="hero-buttons">
-            <a 
-              href={PORTFOLIO_DATA.resumeUrl} 
-              className="btn btn-primary"
-              download
-            >
-              <DynamicIcon name="Download" size={18} />
-              Download CV
-            </a>
-            <a href="#contact" className="btn btn-outline">
-              Contact Me
-            </a>
+
+          <div className="hero-right">
+            <RobotCanvas className="hero-robot-canvas" />
           </div>
         </div>
       </section>
